@@ -37,7 +37,6 @@ public class StoreCommandService {
         if (updateStoreRequest.storeAddress() != null) store.setStoreAddress(updateStoreRequest.storeAddress());
         if (updateStoreRequest.instagramUrl() != null) store.setInstagramUrl(updateStoreRequest.instagramUrl());
         if (updateStoreRequest.availableDays() != null) store.setAvailableDays(updateStoreRequest.availableDays());
-        if (updateStoreRequest.availableDrinks() != null) store.setAvailableDrinks(updateStoreRequest.availableDrinks());
 
         // DirtyChecking
         return store;
@@ -45,7 +44,6 @@ public class StoreCommandService {
 
     // 이미지 추가 메서드
     public void addImages(Store store, StoreImageType storeImageType,List<ImageInfo> newImageUrls) {
-        System.out.println("here");
         List<StoreImage> newStoreImages = newImageUrls.stream()
                 .map(imageInfo -> StoreImage.builder()
                                             .store(store)

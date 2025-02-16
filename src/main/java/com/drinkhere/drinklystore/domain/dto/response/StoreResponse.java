@@ -13,7 +13,6 @@ public record StoreResponse(
         String storeAddress,
         String instagramUrl,
         String availableDays,
-        String availableDrinks,
         String latitude,
         String longitude
 ) {
@@ -29,7 +28,6 @@ public record StoreResponse(
                 store.getStoreAddress(),
                 store.getInstagramUrl(),
                 store.getAvailableDays(),
-                store.getAvailableDrinks(),
                 store.getLatitude(),
                 store.getLongitude()
         );

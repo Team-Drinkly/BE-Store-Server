@@ -8,7 +8,6 @@ public record UpdateStoreRequest(
         String storeTel,
         String storeAddress,
         String instagramUrl,
-        String availableDays,
-        String availableDrinks
+        String availableDays
 ) {
 }

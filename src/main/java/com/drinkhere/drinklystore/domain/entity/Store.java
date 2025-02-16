@@ -9,6 +9,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -33,7 +34,7 @@ public class Store extends BaseTimeEntity {
     private String storeDescription;
 
     @Column(name = "opening_hours", columnDefinition = "TEXT")
-    private String openingHours; // JSON 형태로 저장
+    private String openingHours; // JSON을 직렬화해서 저장
 
     @Column(name = "store_tel", nullable = false, length = 20)
     private String storeTel;
@@ -44,11 +45,8 @@ public class Store extends BaseTimeEntity {
     @Column(name = "instagram_url", length = 255)
     private String instagramUrl;
 
-    @Column(name = "available_days", length = 20)
+    @Column(name = "available_days", length = 50)
     private String availableDays;
-
-    @Column(name = "available_drinks", columnDefinition = "TEXT")
-    private String availableDrinks; // JSON 형태로 저장
 
     @Column(name = "latitude", nullable = false)
     private String latitude;
@@ -100,10 +98,5 @@ public class Store extends BaseTimeEntity {
     public void setAvailableDays(String availableDays) {
         this.availableDays = availableDays;
     }
-
-    public void setAvailableDrinks(String availableDrinks) {
-        this.availableDrinks = availableDrinks;
-    }
-
 }
 

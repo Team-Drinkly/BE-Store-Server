@@ -47,7 +47,6 @@ public class StoreAdminController implements StoreAdminConrollerDocs {
     ) {
         if (request.type().equals("availableDrinks")) availableDrinkUpdateImagesUseCaseImpl.updateImages(storeId, request);
         else if (request.type().equals("menu")) menuUpdateImagesUseCaseImpl.updateImages(storeId, request);
-
         return ApplicationResponse.ok( "업체 이미지 업데이트를 성공적으로 처리했습니다.");
     }
 }
