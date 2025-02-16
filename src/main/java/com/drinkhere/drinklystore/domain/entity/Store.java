@@ -26,6 +26,9 @@ public class Store extends BaseTimeEntity {
     @Column(name = "store_name", nullable = false, length = 100)
     private String storeName;
 
+    @Column(name = "store_main_image_url", length = 100)
+    private String storeMainImageUrl;
+
     @Column(name = "store_description", columnDefinition = "TEXT")
     private String storeDescription;
 
@@ -65,5 +68,42 @@ public class Store extends BaseTimeEntity {
         this.latitude = latitude;
         this.longitude = longitude;
     }
+
+    public void setStoreName(String storeName) {
+        this.storeName = storeName;
+    }
+
+    public void setStoreMainImageUrl(String storeMainImageUrl) {
+        this.storeMainImageUrl = storeMainImageUrl;
+    }
+
+    public void setStoreDescription(String storeDescription) {
+        this.storeDescription = storeDescription;
+    }
+
+    public void setOpeningHours(String openingHours) {
+        this.openingHours = openingHours;
+    }
+
+    public void setStoreTel(String storeTel) {
+        this.storeTel = storeTel;
+    }
+
+    public void setStoreAddress(String storeAddress) {
+        this.storeAddress = storeAddress;
+    }
+
+    public void setInstagramUrl(String instagramUrl) {
+        this.instagramUrl = instagramUrl;
+    }
+
+    public void setAvailableDays(String availableDays) {
+        this.availableDays = availableDays;
+    }
+
+    public void setAvailableDrinks(String availableDrinks) {
+        this.availableDrinks = availableDrinks;
+    }
+
 }
 

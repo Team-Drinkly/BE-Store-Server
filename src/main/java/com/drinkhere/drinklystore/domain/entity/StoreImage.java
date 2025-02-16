@@ -28,14 +28,14 @@ public class StoreImage {
     @Column(name = "store_image_type", nullable = false, length = 20)
     private StoreImageType storeImageType;
 
-    @Column(name = "image_index", nullable = false)
-    private Integer imageIndex;
+    @Column(name = "store_image_description", nullable = false)
+    private String storeImageDescription;
 
     @Builder
-    public StoreImage(Store store, String storeImageUrl, StoreImageType storeImageType, Integer imageIndex) {
+    public StoreImage(Store store, String storeImageUrl, StoreImageType storeImageType, String storeImageDescription) {
         this.store = store;
         this.storeImageUrl = storeImageUrl;
         this.storeImageType = storeImageType;
-        this.imageIndex = imageIndex;
+        this.storeImageDescription = storeImageDescription;
     }
 }

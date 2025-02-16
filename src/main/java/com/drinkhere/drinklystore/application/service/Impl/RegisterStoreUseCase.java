@@ -1,9 +1,10 @@
-package com.drinkhere.drinklystore.application.service;
+package com.drinkhere.drinklystore.application.service.Impl;
 
 import com.drinkhere.drinklystore.clientgeocoding.dto.Coordinates;
 import com.drinkhere.drinklystore.clientgeocoding.service.GeocodingUseCase;
 import com.drinkhere.drinklystore.common.annotation.ApplicationService;
-import com.drinkhere.drinklystore.domain.dto.RegisterStoreRequest;
+import com.drinkhere.drinklystore.domain.dto.request.RegisterStoreRequest;
+import com.drinkhere.drinklystore.domain.dto.response.StoreResponse;
 import com.drinkhere.drinklystore.domain.service.StoreCommandService;
 import lombok.RequiredArgsConstructor;
 
@@ -13,9 +14,9 @@ public class RegisterStoreUseCase {
     private final StoreCommandService storeCommandService;
     private final GeocodingUseCase geocodingUseCase;
 
-    public void registerStore(RegisterStoreRequest request) {
+    public StoreResponse registerStore(RegisterStoreRequest request) {
         Coordinates coordinates = geocodingUseCase.getCoordinates(request.storeAddress());
-        storeCommandService.save(request.toEntity(coordinates));
+        return StoreResponse.toDto(storeCommandService.save(request.toEntity(coordinates)));
     }
 
 }
