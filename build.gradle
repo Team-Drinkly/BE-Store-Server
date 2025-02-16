@@ -47,8 +47,19 @@ dependencies {
 	implementation 'org.springframework.cloud:spring-cloud-starter-config' // Config Client 처리
 	implementation 'org.springframework.cloud:spring-cloud-starter-bus-amqp' // Spring Cloud Bus
 
+	// Naver Map Geocoding API
+	implementation 'org.springframework.boot:spring-boot-configuration-processor'
+	implementation 'org.springframework.boot:spring-boot-starter-webflux'
+
 	// Kafka 마이크로 서비스 간 통신
 //	implementation 'org.springframework.kafka:spring-kafka'
+	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.4.0'
+
+	// AWS S3 - Presigned-URL
+	implementation 'io.awspring.cloud:spring-cloud-starter-aws:2.4.4'
+	implementation 'io.awspring.cloud:spring-cloud-starter-aws-secrets-manager-config:2.4.4'
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
+	implementation 'org.springframework.boot:spring-boot-starter-aop'
 
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
