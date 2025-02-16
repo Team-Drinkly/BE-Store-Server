@@ -1,6 +1,7 @@
 package com.drinkhere.drinklystore.domain.entity;
 
 import com.drinkhere.drinklystore.domain.auditing.BaseEntity;
+import com.drinkhere.drinklystore.domain.auditing.BaseTimeEntity;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -12,7 +13,7 @@ import java.util.List;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Store extends BaseEntity {
+public class Store extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -40,23 +41,23 @@ public class Store extends BaseEntity {
     @Column(name = "instagram_url", length = 255)
     private String instagramUrl;
 
-    @Column(name = "available_days", columnDefinition = "20")
+    @Column(name = "available_days", length = 20)
     private String availableDays;
 
     @Column(name = "available_drinks", columnDefinition = "TEXT")
     private String availableDrinks; // JSON 형태로 저장
 
     @Column(name = "latitude", nullable = false)
-    private Double latitude;
+    private String latitude;
 
     @Column(name = "longitude", nullable = false)
-    private Double longitude;
+    private String longitude;
 
     @OneToMany(mappedBy = "store", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<StoreImage> storeImages;
 
     @Builder
-    public Store(Long ownerId, String storeName, String storeTel, String storeAddress, Double latitude, Double longitude) {
+    public Store(Long ownerId, String storeName, String storeTel, String storeAddress, String latitude, String longitude) {
         this.ownerId = ownerId;
         this.storeName = storeName;
         this.storeTel = storeTel;
