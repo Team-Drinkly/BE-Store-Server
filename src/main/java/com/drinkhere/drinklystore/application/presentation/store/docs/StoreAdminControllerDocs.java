@@ -63,7 +63,7 @@ public interface StoreAdminControllerDocs {
     @Operation(
             summary = "제휴 업체 이미지 업데이트 API",
             description = "제휴 업체의 이미지를 업데이트합니다. 사용자는 이미지 타입을 지정하고, 새로운 이미지를 추가하거나 기존 이미지를 삭제할 수 있습니다. " +
-                    "이미지 타입은 'availableDrinks' 또는 'menuImages'로 구분되며, 추가할 이미지는 `newImageUrls` 리스트에 제공되고, 삭제할 이미지는 `removeImageIds` 리스트에 제공됩니다."
+                    "이미지 타입은 `availableDrinks` 또는 `menuImages`로 구분되며, 추가할 이미지는 `newImageUrls` 리스트에 제공되고, 삭제할 이미지는 `removeImageIds` 리스트에 제공됩니다."
     )
     ApplicationResponse<String> updateStoreImages(
             @Valid @PathVariable Long storeId,

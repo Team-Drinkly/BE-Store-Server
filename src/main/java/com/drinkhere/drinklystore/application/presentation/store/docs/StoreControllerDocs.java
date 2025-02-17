@@ -14,7 +14,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 
 import java.util.List;
 
-@Tag(name = "2. 제휴 업체 조회 관련 API", description = "제휴 업체 정보 조회관련 API 명세입니다.")
+@Tag(name = "2. 제휴 업체 READ 관련 API", description = "제휴 업체 정보 조회관련 API 명세입니다.")
 public interface StoreControllerDocs {
 
     @ApiResponses(value = {
