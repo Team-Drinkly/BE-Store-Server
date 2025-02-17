@@ -14,7 +14,8 @@ public record StoreResponse(
         String instagramUrl,
         String availableDays,
         String latitude,
-        String longitude
+        String longitude,
+        String businessRegistrationNumber
 ) {
     public static StoreResponse toDto(Store store) {
         return new StoreResponse(
@@ -29,7 +30,8 @@ public record StoreResponse(
                 store.getInstagramUrl(),
                 store.getAvailableDays(),
                 store.getLatitude(),
-                store.getLongitude()
+                store.getLongitude(),
+                store.getBusinessRegistrationNumber()
         );
     }
 }
