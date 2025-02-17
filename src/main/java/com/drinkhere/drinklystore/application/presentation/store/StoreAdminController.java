@@ -22,10 +22,7 @@ public class StoreAdminController implements StoreAdminControllerDocs {
     private final UpdateImagesUseCase menuUpdateImagesUseCaseImpl;
     private final UpdateImagesUseCase availableDrinkUpdateImagesUseCaseImpl;
 
-    /**
-     * 추후에 카프카 Event Listening 시 해당 UseCase 이동
-     */
-    @PostMapping("/temp")
+    @PostMapping
     public ApplicationResponse<StoreResponse> registerStore(
             @RequestBody RegisterStoreRequest registerStoreRequest
     ) {
@@ -35,6 +32,7 @@ public class StoreAdminController implements StoreAdminControllerDocs {
     @PatchMapping("/{storeId}")
     public ApplicationResponse<StoreResponse> updateStore(
             @PathVariable Long storeId,
+            @RequestHeader(value = "owner-id", required = false) Long ownerId,
             @RequestBody UpdateStoreRequest updateStoreRequest
     ) {
         return ApplicationResponse.ok(updateStoreUseCase.updateStore(storeId, updateStoreRequest), "업체 업데이트가 성공적으로 처리됐습니다.");
@@ -44,6 +42,7 @@ public class StoreAdminController implements StoreAdminControllerDocs {
     @PatchMapping("/{storeId}/images")
     public ApplicationResponse<String> updateStoreImages(
             @PathVariable Long storeId,
+            @RequestHeader(value = "owner-id", required = false) Long ownerId,
             @RequestBody StoreImageUpdateRequest request
     ) {
         if (request.type().equals("availableDrinks")) availableDrinkUpdateImagesUseCaseImpl.updateImages(storeId, request);
