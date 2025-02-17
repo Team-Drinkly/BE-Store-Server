@@ -19,12 +19,12 @@ spring:
     hibernate:
       ddl-auto: update
 
-  kafka:
-    bootstrap-servers: localhost:29092  # Kafka 서버 주소
-    consumer:
-      group-id: create-store  # Consumer 그룹 ID
-      auto-offset-reset: earliest  # Kafka 메시지 읽기 시작 지점 설정
-      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
-      properties:
-        spring.json.trusted.packages: "*"  # 모든 패키지의 JSON 메시지를 신뢰
+#  kafka:
+#    bootstrap-servers: localhost:29092  # Kafka 서버 주소
+#    consumer:
+#      group-id: create-store  # Consumer 그룹 ID
+#      auto-offset-reset: earliest  # Kafka 메시지 읽기 시작 지점 설정
+#      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+#      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+#      properties:
+#        spring.json.trusted.packages: "*"  # 모든 패키지의 JSON 메시지를 신뢰

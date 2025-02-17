@@ -1,6 +1,6 @@
 package com.drinkhere.drinklystore.common.exception;
 
-import com.drinkhere.drinklycoupon.common.response.ApplicationResponse;
+import com.drinkhere.drinklystore.common.response.ApplicationResponse;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
