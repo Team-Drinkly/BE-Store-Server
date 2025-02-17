@@ -1,6 +1,6 @@
 package com.drinkhere.drinklystore.application.presentation.freedrink;
 
-import com.drinkhere.drinklystore.application.presentation.docs.FreeDrinkControllerDocs;
+import com.drinkhere.drinklystore.application.presentation.freedrink.docs.FreeDrinkControllerDocs;
 import com.drinkhere.drinklystore.application.service.Impl.freedrinkhistory.CreateFreeDrinkHistoryUseCase;
 import com.drinkhere.drinklystore.common.response.ApplicationResponse;
 import com.drinkhere.drinklystore.domain.dto.request.CreateFreeDrinkHistoryRequest;

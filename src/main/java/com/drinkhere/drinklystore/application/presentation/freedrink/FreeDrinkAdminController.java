@@ -1,9 +1,8 @@
 package com.drinkhere.drinklystore.application.presentation.freedrink;
 
-import com.drinkhere.drinklystore.application.presentation.docs.FreeDrinkAdminControllerDocs;
+import com.drinkhere.drinklystore.application.presentation.freedrink.docs.FreeDrinkAdminControllerDocs;
 import com.drinkhere.drinklystore.application.service.Impl.freedrinkhistory.GetFreeDrinkHistoriesUseCase;
 import com.drinkhere.drinklystore.common.response.ApplicationResponse;
-import com.drinkhere.drinklystore.domain.dto.request.CreateFreeDrinkHistoryRequest;
 import com.drinkhere.drinklystore.domain.dto.response.GetFreeDrinkHistoryResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;

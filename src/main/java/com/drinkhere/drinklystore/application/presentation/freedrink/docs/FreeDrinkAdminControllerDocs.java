@@ -1,7 +1,6 @@
-package com.drinkhere.drinklystore.application.presentation.docs;
+package com.drinkhere.drinklystore.application.presentation.freedrink.docs;
 
 import com.drinkhere.drinklystore.common.response.ApplicationResponse;
-import com.drinkhere.drinklystore.domain.dto.request.CreateFreeDrinkHistoryRequest;
 import com.drinkhere.drinklystore.domain.dto.response.GetFreeDrinkHistoryResponse;
 
 import java.util.List;
