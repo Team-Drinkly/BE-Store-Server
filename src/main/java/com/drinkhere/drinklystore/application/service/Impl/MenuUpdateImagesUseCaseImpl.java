@@ -18,7 +18,6 @@ public class MenuUpdateImagesUseCaseImpl implements UpdateImagesUseCase {
     @Override
     public void updateImages(Long storeId, StoreImageUpdateRequest storeImageUpdateRequest) {
         Store store = storeQueryService.findById(storeId);
-        System.out.println("here is menu use case");
         // 1. 새로 추가할 이미지 처리 (newImageUrls)
         if (storeImageUpdateRequest.newImageUrls() != null && !storeImageUpdateRequest.newImageUrls().isEmpty()) {
             storeCommandService.addImages(store, StoreImageType.MENU, storeImageUpdateRequest.newImageUrls());

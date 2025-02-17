@@ -20,11 +20,8 @@ public class StoreQueryService {
     }
 
 
-    public List<GetStoresByLocationResponse> getStoresByLocation(Double latitude, Double longitude, int radius, String searchKeyWord) {
-        List<Store> stores = storeRepository.findStoresByLocation(latitude, longitude, radius, searchKeyWord);
-        return stores.stream()
-                .map(GetStoresByLocationResponse::toDto)
-                .toList();
+    public List<Store> getStoresByLocation(Double latitude, Double longitude, int radius, String searchKeyWord) {
+        return storeRepository.findStoresByLocation(latitude, longitude, radius, searchKeyWord);
     }
 
     public Store findByIdWithImages(Long storeId) {

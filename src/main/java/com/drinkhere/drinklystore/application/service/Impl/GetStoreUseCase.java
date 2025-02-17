@@ -10,9 +10,10 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class GetStoreUseCase {
     private final StoreQueryService storeQueryService;
+    private final PresignedUrlService presignedUrlService;
 
     public GetStoreResponse getStore(Long storeId) {
         Store store = storeQueryService.findByIdWithImages(storeId);
-        return GetStoreResponse.toDto(store);
+        return GetStoreResponse.toDto(store, presignedUrlService);
     }
 }
