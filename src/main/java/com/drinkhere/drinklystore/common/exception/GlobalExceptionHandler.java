@@ -1,8 +1,11 @@
 package com.drinkhere.drinklystore.common.exception;
 
 
+import com.drinkhere.drinklystore.common.exception.store.StoreException;
 import com.drinkhere.drinklystore.common.response.ApplicationResponse;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -16,23 +19,32 @@ import java.util.NoSuchElementException;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
-    @ExceptionHandler(MethodArgumentNotValidException.class)
-    protected ResponseEntity<ApplicationResponse<Object>> handleMethodArgumentNotValidException(MethodArgumentNotValidException e) {
-        return ResponseEntity.badRequest().body(ApplicationResponse.badRequest(null, e.getMessage()));
+    @ExceptionHandler(MethodArgumentNotValidException.class) // @Valid 검증 실패 처리
+    public ApplicationResponse<Object> handleMethodArgumentNotValidException(MethodArgumentNotValidException e) {
+        BindingResult bindingResult = e.getBindingResult();
+        StringBuilder errorMessage = new StringBuilder();
+
+        for (FieldError fieldError : bindingResult.getFieldErrors()) {
+            errorMessage.append(fieldError.getField())
+                    .append(": ")
+                    .append(fieldError.getDefaultMessage())
+                    .append(" & ");
+        }
+
+        return ApplicationResponse.badRequest(errorMessage.delete(errorMessage.length()-3, errorMessage.length()).toString());
     }
 
-    @ExceptionHandler(NoSuchElementException.class)
-    protected ResponseEntity<ApplicationResponse<Void>> handleNoSuchElementException(NoSuchElementException e) {
-        return ResponseEntity.status(404).body(ApplicationResponse.custom(null, 404, e.getMessage()));
-    }
-
-    @ExceptionHandler(Exception.class)
-    protected ResponseEntity<ApplicationResponse<Void>> handleGeneralException(Exception e) {
-        return ResponseEntity.internalServerError().body(ApplicationResponse.server(null, e.getMessage()));
+    @ExceptionHandler(StoreException.class)
+    protected ApplicationResponse<String> handleVendorException(StoreException e) {
+        return ApplicationResponse.custom(
+                e.getMessage(), // Payload
+                e.getErrorCode().getHttpStatus().value(), // Code
+                e.getErrorCode().getHttpStatus().getReasonPhrase() // Message
+        );
     }
 
     @ExceptionHandler(RuntimeException.class)
-    protected ResponseEntity<ApplicationResponse<Void>> handleRuntimeException(RuntimeException e) {
-        return ResponseEntity.status(500).body(ApplicationResponse.server(null, e.getMessage()));
+    protected ApplicationResponse<Void> handleRuntimeException(RuntimeException e) {
+        return ApplicationResponse.server(null, e.getMessage());
     }
 }

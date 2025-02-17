@@ -20,7 +20,13 @@ public interface StoreRepository extends JpaRepository<Store, Long> {
     }
 
     @Query(value = """
-            SELECT * FROM store s 
+            SELECT s.*, 
+                   6371 * acos(
+                       cos(radians(:latitude)) * cos(radians(CAST(s.latitude AS DOUBLE))) 
+                       * cos(radians(CAST(s.longitude AS DOUBLE)) - radians(:longitude)) 
+                       + sin(radians(:latitude)) * sin(radians(CAST(s.latitude AS DOUBLE)))
+                   ) AS distance
+            FROM store s
             WHERE (
                 6371 * acos(
                     cos(radians(:latitude)) * cos(radians(CAST(s.latitude AS DOUBLE))) 
@@ -29,12 +35,12 @@ public interface StoreRepository extends JpaRepository<Store, Long> {
                 )
             ) < :radius
             AND (:searchKeyword IS NULL OR s.store_name LIKE %:searchKeyword%)
+            ORDER BY distance ASC
     """, nativeQuery = true)
     List<Store> findStoresByLocation(@Param("latitude") double latitude,
                                      @Param("longitude") double longitude,
                                      @Param("radius") double radius,
-                                     @Param("searchKeyword") String searchKeyword
-    );
+                                     @Param("searchKeyword") String searchKeyword);
 
 
 

@@ -1,7 +1,6 @@
 package com.drinkhere.drinklystore.domain.dto.response;
 
 import com.drinkhere.drinklystore.infras3.service.PresignedUrlService;
-import com.drinkhere.drinklystore.domain.dto.request.ImageInfo;
 import com.drinkhere.drinklystore.domain.entity.Store;
 import com.drinkhere.drinklystore.domain.enums.StoreImageType;
 
@@ -21,20 +20,20 @@ public record GetStoreResponse(
         String availableDays,
         String latitude,
         String longitude,
-        List<ImageInfo> availableDrinkImageUrls,
-        List<ImageInfo> menuImageUrls
+        List<ImageInfoResponse> availableDrinkImageUrls,
+        List<ImageInfoResponse> menuImageUrls
 ) {
     public static GetStoreResponse toDto(Store store, PresignedUrlService presignedUrlService) {
         String presignedUrl = presignedUrlService.getPresignedUrlForGet(store.getStoreMainImageUrl());
         
-        List<ImageInfo> availableDrinkImages = store.getStoreImages().stream()
+        List<ImageInfoResponse> availableDrinkImages = store.getStoreImages().stream()
                 .filter(image -> image.getStoreImageType() == StoreImageType.AVAILABLE_DRINK)
-                .map(image -> ImageInfo.toDto(presignedUrlService.getPresignedUrlForGet(image.getStoreImageUrl()), image.getStoreImageDescription()))
+                .map(image -> ImageInfoResponse.toDto(image.getId(), presignedUrlService.getPresignedUrlForGet(image.getStoreImageUrl()), image.getStoreImageDescription()))
                 .collect(Collectors.toList());
 
-        List<ImageInfo> menuImages = store.getStoreImages().stream()
+        List<ImageInfoResponse> menuImages = store.getStoreImages().stream()
                 .filter(image -> image.getStoreImageType() == StoreImageType.MENU)
-                .map(image -> ImageInfo.toDto(presignedUrlService.getPresignedUrlForGet(image.getStoreImageUrl()), image.getStoreImageDescription()))
+                .map(image -> ImageInfoResponse.toDto(image.getId(), presignedUrlService.getPresignedUrlForGet(image.getStoreImageUrl()), image.getStoreImageDescription()))
                 .collect(Collectors.toList());
 
         return new GetStoreResponse(
