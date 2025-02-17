@@ -1,6 +1,6 @@
 package com.drinkhere.drinklystore.application.presentation.store;
 
-import com.drinkhere.drinklystore.application.presentation.docs.StoreControllerDocs;
+import com.drinkhere.drinklystore.application.presentation.store.docs.StoreControllerDocs;
 import com.drinkhere.drinklystore.application.service.Impl.GetStoreUseCase;
 import com.drinkhere.drinklystore.application.service.Impl.GetStoresByLocationUseCase;
 import com.drinkhere.drinklystore.common.response.ApplicationResponse;

@@ -7,6 +7,7 @@ public record GetFreeDrinkHistoryResponse(
         Long freeDrinkHistoryId,
         String providedDrink,
         Long memberId,
+        String memberNickname,
         String createdAt
 ) {
     public static GetFreeDrinkHistoryResponse toDto(FreeDrinkHistory freeDrinkHistory) {
@@ -14,6 +15,7 @@ public record GetFreeDrinkHistoryResponse(
                 freeDrinkHistory.getId(),
                 freeDrinkHistory.getProvidedDrink(),
                 freeDrinkHistory.getMemberId(),
+                freeDrinkHistory.getMemberNickname(),
                 TimeUtil.refineToDateTime(freeDrinkHistory.getCreatedDate())
         );
     }

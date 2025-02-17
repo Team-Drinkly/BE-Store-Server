@@ -51,8 +51,9 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-configuration-processor'
 	implementation 'org.springframework.boot:spring-boot-starter-webflux'
 
-	// Kafka 마이크로 서비스 간 통신
-//	implementation 'org.springframework.kafka:spring-kafka'
+	// OpenFeign 마이크로 서비스 간 통신
+	implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
+
 	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.4.0'
 
 	// AWS S3 - Presigned-URL

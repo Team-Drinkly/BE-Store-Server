@@ -1,6 +1,6 @@
 package com.drinkhere.drinklystore.application.presentation.store;
 
-import com.drinkhere.drinklystore.application.presentation.docs.StoreAdminControllerDocs;
+import com.drinkhere.drinklystore.application.presentation.store.docs.StoreAdminControllerDocs;
 import com.drinkhere.drinklystore.application.service.Impl.RegisterStoreUseCase;
 import com.drinkhere.drinklystore.application.service.Impl.UpdateStoreUseCase;
 import com.drinkhere.drinklystore.application.service.UpdateImagesUseCase;
