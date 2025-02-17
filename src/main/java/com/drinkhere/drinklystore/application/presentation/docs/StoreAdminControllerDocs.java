@@ -6,7 +6,7 @@ import com.drinkhere.drinklystore.domain.dto.request.RegisterStoreRequest;
 import com.drinkhere.drinklystore.domain.dto.request.UpdateStoreRequest;
 import com.drinkhere.drinklystore.domain.dto.response.StoreResponse;
 
-public interface StoreAdminConrollerDocs {
+public interface StoreAdminControllerDocs {
 
     ApplicationResponse<StoreResponse> registerStore(RegisterStoreRequest request);
     ApplicationResponse<StoreResponse> updateStore(Long storeId, UpdateStoreRequest request);

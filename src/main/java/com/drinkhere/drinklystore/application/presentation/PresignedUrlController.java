@@ -1,7 +1,7 @@
 package com.drinkhere.drinklystore.application.presentation;
 
 import com.drinkhere.drinklystore.common.response.ApplicationResponse;
-import com.drinkhere.drinklystore.application.service.Impl.PresignedUrlService;
+import com.drinkhere.drinklystore.infras3.service.PresignedUrlService;
 import com.drinkhere.drinklystore.infras3.dto.request.GetPresignedUrlListRequest;
 import com.drinkhere.drinklystore.infras3.dto.request.GetPresignedUrlRequest;
 import com.drinkhere.drinklystore.infras3.dto.response.GetPresignedUrlResponse;

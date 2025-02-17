@@ -1,4 +1,4 @@
-package com.drinkhere.drinklystore.application.presentation;
+package com.drinkhere.drinklystore.application.presentation.store;
 
 import com.drinkhere.drinklystore.application.presentation.docs.StoreControllerDocs;
 import com.drinkhere.drinklystore.application.service.Impl.GetStoreUseCase;
@@ -23,7 +23,7 @@ public class StoreController implements StoreControllerDocs {
     public ApplicationResponse<List<GetStoresByLocationResponse>> getStoresByLocation(
             @RequestParam double latitude,
             @RequestParam double longitude,
-            @RequestParam(defaultValue = "0") int radius,
+            @RequestParam(defaultValue = "50") int radius,
             @RequestParam(required = false) String searchKeyword
     ) {
         List<GetStoresByLocationResponse> stores = getStoresByLocationUseCase.getStoresByLocation(latitude, longitude, radius, searchKeyword);

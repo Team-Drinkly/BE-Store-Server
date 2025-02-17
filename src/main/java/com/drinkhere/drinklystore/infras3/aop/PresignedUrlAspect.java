@@ -2,7 +2,7 @@ package com.drinkhere.drinklystore.infras3.aop;
 
 import com.drinkhere.drinklystore.common.response.ApplicationResponse;
 import com.drinkhere.drinklystore.infras3.aop.Interface.TransformToPresignedUrl;
-import com.drinkhere.drinklystore.application.service.Impl.PresignedUrlService;
+import com.drinkhere.drinklystore.infras3.service.PresignedUrlService;
 import lombok.RequiredArgsConstructor;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;

@@ -4,14 +4,10 @@ import com.drinkhere.drinklystore.application.service.UpdateImagesUseCase;
 import com.drinkhere.drinklystore.common.annotation.ApplicationService;
 import com.drinkhere.drinklystore.domain.dto.request.StoreImageUpdateRequest;
 import com.drinkhere.drinklystore.domain.entity.Store;
-import com.drinkhere.drinklystore.domain.entity.StoreImage;
 import com.drinkhere.drinklystore.domain.enums.StoreImageType;
-import com.drinkhere.drinklystore.domain.service.StoreCommandService;
-import com.drinkhere.drinklystore.domain.service.StoreQueryService;
+import com.drinkhere.drinklystore.domain.service.store.StoreCommandService;
+import com.drinkhere.drinklystore.domain.service.store.StoreQueryService;
 import lombok.RequiredArgsConstructor;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 @ApplicationService
 @RequiredArgsConstructor

@@ -5,7 +5,7 @@ import com.drinkhere.drinklystore.clientgeocoding.service.GeocodingUseCase;
 import com.drinkhere.drinklystore.common.annotation.ApplicationService;
 import com.drinkhere.drinklystore.domain.dto.request.RegisterStoreRequest;
 import com.drinkhere.drinklystore.domain.dto.response.StoreResponse;
-import com.drinkhere.drinklystore.domain.service.StoreCommandService;
+import com.drinkhere.drinklystore.domain.service.store.StoreCommandService;
 import lombok.RequiredArgsConstructor;
 
 @ApplicationService

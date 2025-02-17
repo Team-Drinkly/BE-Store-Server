@@ -1,6 +1,6 @@
-package com.drinkhere.drinklystore.application.presentation;
+package com.drinkhere.drinklystore.application.presentation.store;
 
-import com.drinkhere.drinklystore.application.presentation.docs.StoreAdminConrollerDocs;
+import com.drinkhere.drinklystore.application.presentation.docs.StoreAdminControllerDocs;
 import com.drinkhere.drinklystore.application.service.Impl.RegisterStoreUseCase;
 import com.drinkhere.drinklystore.application.service.Impl.UpdateStoreUseCase;
 import com.drinkhere.drinklystore.application.service.UpdateImagesUseCase;
@@ -15,7 +15,8 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/store/o")
-public class StoreAdminController implements StoreAdminConrollerDocs {
+public class StoreAdminController implements StoreAdminControllerDocs {
+
     private final RegisterStoreUseCase registerStoreUseCase;
     private final UpdateStoreUseCase updateStoreUseCase;
     private final UpdateImagesUseCase menuUpdateImagesUseCaseImpl;

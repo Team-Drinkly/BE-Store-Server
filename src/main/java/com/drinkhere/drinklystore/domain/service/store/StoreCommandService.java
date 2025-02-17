@@ -1,4 +1,4 @@
-package com.drinkhere.drinklystore.domain.service;
+package com.drinkhere.drinklystore.domain.service.store;
 
 import com.drinkhere.drinklystore.common.annotation.DomainService;
 import com.drinkhere.drinklystore.domain.dto.request.ImageInfo;
@@ -13,8 +13,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
-
-import static com.drinkhere.drinklystore.domain.enums.StoreImageType.AVAILABLE_DRINK;
 
 @DomainService
 @Transactional
