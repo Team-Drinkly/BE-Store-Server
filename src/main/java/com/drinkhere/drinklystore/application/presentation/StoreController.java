@@ -34,4 +34,6 @@ public class StoreController implements StoreControllerDocs {
     public ApplicationResponse<GetStoreResponse> getStore(@PathVariable Long storeId) {
         return ApplicationResponse.ok(getStoreUseCase.getStore(storeId), "제휴 업체 상세 정보입니다.");
     }
+
+
 }
