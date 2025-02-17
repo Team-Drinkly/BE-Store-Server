@@ -5,6 +5,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 
+@Schema(description = "제휴 업체 정보 업데이트")
 public record UpdateStoreRequest(
 
         @Schema(description = "제휴 업체 이름", example = "여기, 꼬치네", required = true)
