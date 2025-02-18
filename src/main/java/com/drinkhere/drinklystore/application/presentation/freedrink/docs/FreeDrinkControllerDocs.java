@@ -21,16 +21,20 @@ public interface FreeDrinkControllerDocs {
                     schema = @Schema(implementation = ApplicationResponse.class))),
             @ApiResponse(responseCode = "400", description = "BAD REQUEST -  잘못된 요청", content = @Content(mediaType = "application/json",
                     schema = @Schema(implementation = ApplicationResponse.class))),
+            @ApiResponse(responseCode = "401", description = "UNAUTHORIZED -  구독하지 않은 회원", content = @Content(mediaType = "application/json",
+                    schema = @Schema(implementation = ApplicationResponse.class))),
             @ApiResponse(responseCode = "500", description = "INTERNAL SERVER ERROR - 서버 오류", content = @Content(mediaType = "application/json",
                     schema = @Schema(implementation = ApplicationResponse.class)))
     })
     @Operation(
             summary = "멤버쉽 사용 이력 생성 API",
-            description = "멤버쉽 사용 이력을 생성합니다. 요청 시 `JWT 토큰`을 입력하면 Gateway에서 자동으로 `member-id` 및 `subscribe-id`를 추출하여 헤더에 추가하므로, 별도로 포함할 필요 없습니다."
+            description = "멤버쉽 사용 이력을 생성합니다. 요청 시 `JWT 토큰`을 입력하면 Gateway에서 자동으로 `member-id`, `is_subscribe` 및 `subscribe-id`를 추출하여 헤더에 추가하므로, 별도로 포함할 필요 없습니다." +
+                    "구독된 회원만 사용가능합니다."
     )
     ApplicationResponse<String> createFreeDrinkHistory(
             @Parameter(description = "드링클리 멤버의 ID (Header)", example = "1") @RequestHeader(value = "member-id", required = false) Long memberId,
             @Parameter(description = "구독 이력 ID (Header)", example = "1") @RequestHeader(value = "subscribe-id", required = false) Long subscriberId,
+            @Parameter(description = "멤버 구독 여부 (Header)", example = "true") @RequestHeader(value = "is-subscribe", required = false) String isSubscribe,
             @Valid @RequestBody CreateFreeDrinkHistoryRequest createFreeDrinkHistoryRequest
     );
 }

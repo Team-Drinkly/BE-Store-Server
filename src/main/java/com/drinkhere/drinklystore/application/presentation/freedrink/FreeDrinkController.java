@@ -18,9 +18,10 @@ public class FreeDrinkController implements FreeDrinkControllerDocs {
     public ApplicationResponse<String> createFreeDrinkHistory(
             @RequestHeader(value = "member-id", required = false) Long memberId,
             @RequestHeader(value = "subscribe-id", required = false) Long subscribeId,
+            @RequestHeader(value = "is-subscribe", required = false) String isSubscribe,
             @RequestBody CreateFreeDrinkHistoryRequest createFreeDrinkHistoryRequest
     ) {
-        createFreeDrinkHistoryUseCase.createFreeDrinkHistory(memberId, subscribeId, createFreeDrinkHistoryRequest);
+        createFreeDrinkHistoryUseCase.createFreeDrinkHistory(isSubscribe, memberId, subscribeId, createFreeDrinkHistoryRequest);
         return ApplicationResponse.created("Free Drink History를 성공적으로 생성했습니다.");
     }
 }
