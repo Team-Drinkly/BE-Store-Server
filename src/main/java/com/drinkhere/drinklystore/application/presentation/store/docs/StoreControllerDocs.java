@@ -11,6 +11,8 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -32,10 +34,10 @@ public interface StoreControllerDocs {
                     "만약 검색 키워드가 제공되면, 해당 키워드로 필터링된 업체들만 반환됩니다. 반경 값은 키로미터 단위로 제공되며, 기본적으로 가까운 순서대로 제휴 업체들이 반환됩니다."
     )
     ApplicationResponse<List<GetStoresByLocationResponse>> getStoresByLocation(
-            @Parameter(description = "위도 값", example = "37.63022195215973") double latitude,
-            @Parameter(description = "경도 값", example = "127.07671771357782") double longitude,
-            @Parameter(description = "검색할 반경 값 (KM 단위)", example = "50") int radius,
-            @Parameter(description = "검색할 키워드 (옵션)", example = "여기, 꼬치네") String searchKeyword
+            @Parameter(description = "위도 값", example = "37.63022195215973") @RequestParam(value = "latitude", defaultValue = "37.63022195215973") double latitude,
+            @Parameter(description = "경도 값", example = "127.07671771357782") @RequestParam(value = "longitude", defaultValue = "127.07671771357782") double longitude,
+            @Parameter(description = "검색할 반경 값 (KM 단위)", example = "50") @RequestParam(value = "radius", defaultValue = "50") int radius,
+            @Parameter(description = "검색할 키워드 (옵션)", example = "여기, 꼬치네") @RequestParam(value = "searchKeyword", required = false) String searchKeyword
     );
 
 
@@ -51,6 +53,6 @@ public interface StoreControllerDocs {
     })
     @Operation(summary = "제휴 업체 상세 조회 API", description = "제휴 업체의 상세 정보를 조회합니다. `storeId`에 해당하는 제휴 업체의 정보를 반환하며, 존재하지 않는 `storeId`를 입력할 경우 404 에러를 반환합니다.")
     ApplicationResponse<GetStoreResponse> getStore(
-            @Parameter(description = "조회할 제휴 업체의 고유 ID", required = true, example = "1") Long storeId
+            @Parameter(description = "조회할 제휴 업체의 고유 ID", required = true, example = "1") @PathVariable(value = "storeId", required = true) Long storeId
     );
 }

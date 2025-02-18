@@ -21,8 +21,8 @@ public class StoreController implements StoreControllerDocs {
 
     @GetMapping
     public ApplicationResponse<List<GetStoresByLocationResponse>> getStoresByLocation(
-            @RequestParam double latitude,
-            @RequestParam double longitude,
+            @RequestParam(defaultValue = "37.63022195215973") double latitude,
+            @RequestParam(defaultValue = "127.07671771357782") double longitude,
             @RequestParam(defaultValue = "50") int radius,
             @RequestParam(required = false) String searchKeyword
     ) {
