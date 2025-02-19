@@ -21,4 +21,8 @@ public class FreeDrinkHistoryQueryService {
     public List<FreeDrinkHistory> getFreeDrinkHistories(Long storeId) {
         return freeDrinkHistoryRepository.findAllByStoreIdOrderByCreatedDateDesc(storeId);
     }
+
+    public List<FreeDrinkHistory> getMemberFreeDrinkHistories(Long memberId, Long subscribeId) {
+        return freeDrinkHistoryRepository.findAllByMemberIdAndSubscribeIdOrderByCreatedDateDesc(memberId, subscribeId);
+    }
 }

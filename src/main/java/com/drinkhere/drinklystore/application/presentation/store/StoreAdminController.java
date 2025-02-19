@@ -59,9 +59,7 @@ public class StoreAdminController implements StoreAdminControllerDocs {
         return ApplicationResponse.ok( "업체 이미지 업데이트를 성공적으로 처리했습니다.");
     }
 
-    // TODO: 해당 사장님의 업체들
-
-    @GetMapping
+    @GetMapping("/owner")
     public ApplicationResponse<List<GetStoreListResponse>> getStoreList(
             @RequestHeader(value = "owner-id", required = false) Long ownerId
     ) {

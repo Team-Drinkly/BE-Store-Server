@@ -19,7 +19,7 @@ public class StoreQueryService {
     }
 
     public List<Store> findByOwnerId(Long ownerId) {
-        return storeRepository.findByOwnerIdOrThrow(ownerId);
+        return storeRepository.findByOwnerId(ownerId);
     }
 
     public List<Store> getStoresByLocation(Double latitude, Double longitude, int radius, String searchKeyWord) {
