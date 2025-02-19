@@ -27,7 +27,6 @@ public class FreeDrinkController implements FreeDrinkControllerDocs {
             @RequestHeader(value = "is-subscribed", required = false) String isSubscribe,
             @RequestBody CreateFreeDrinkHistoryRequest createFreeDrinkHistoryRequest
     ) {
-        System.out.println(memberId + " " + subscribeId + " " + isSubscribe);
         createFreeDrinkHistoryUseCase.createFreeDrinkHistory(isSubscribe, memberId, subscribeId, createFreeDrinkHistoryRequest);
         return ApplicationResponse.created("Free Drink History를 성공적으로 생성했습니다.");
     }
