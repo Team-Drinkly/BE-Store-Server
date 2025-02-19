@@ -5,4 +5,7 @@ spring:
   application:
     name: store-service
   config:
-    import: optional:configserver:https://drinkhere.com:8888
+    import: optional:configserver:http://config-server:8888
+
+member-service:
+  url: http://member-serivce:8000/api/v1/member

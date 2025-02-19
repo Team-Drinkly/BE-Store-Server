@@ -14,7 +14,15 @@ import java.util.List;
 public class FreeDrinkHistoryQueryService {
     private final FreeDrinkHistoryRepository freeDrinkHistoryRepository;
 
+    public List<FreeDrinkHistory> getRecentFreeDrinkHistories(Long storeId) {
+        return freeDrinkHistoryRepository.findTop3ByStoreIdOrderByCreatedDateDesc(storeId);
+    }
+
     public List<FreeDrinkHistory> getFreeDrinkHistories(Long storeId) {
-        return freeDrinkHistoryRepository.findAllByStoreId(storeId);
+        return freeDrinkHistoryRepository.findAllByStoreIdOrderByCreatedDateDesc(storeId);
+    }
+
+    public List<FreeDrinkHistory> getMemberFreeDrinkHistories(Long memberId, Long subscribeId) {
+        return freeDrinkHistoryRepository.findAllByMemberIdAndSubscribeIdOrderByCreatedDateDesc(memberId, subscribeId);
     }
 }

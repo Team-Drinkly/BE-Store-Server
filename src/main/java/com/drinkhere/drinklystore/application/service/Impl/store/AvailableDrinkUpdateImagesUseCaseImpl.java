@@ -1,4 +1,4 @@
-package com.drinkhere.drinklystore.application.service.Impl;
+package com.drinkhere.drinklystore.application.service.Impl.store;
 
 import com.drinkhere.drinklystore.application.service.UpdateImagesUseCase;
 import com.drinkhere.drinklystore.common.annotation.ApplicationService;
@@ -11,16 +11,18 @@ import lombok.RequiredArgsConstructor;
 
 @ApplicationService
 @RequiredArgsConstructor
-public class MenuUpdateImagesUseCaseImpl implements UpdateImagesUseCase {
+public class AvailableDrinkUpdateImagesUseCaseImpl implements UpdateImagesUseCase {
     private final StoreQueryService storeQueryService;
     private final StoreCommandService storeCommandService;
 
     @Override
     public void updateImages(Long storeId, StoreImageUpdateRequest storeImageUpdateRequest) {
+        // 1. Store 엔티티 조회
         Store store = storeQueryService.findById(storeId);
+
         // 1. 새로 추가할 이미지 처리 (newImageUrls)
         if (storeImageUpdateRequest.newImageUrls() != null && !storeImageUpdateRequest.newImageUrls().isEmpty()) {
-            storeCommandService.addImages(store, StoreImageType.MENU, storeImageUpdateRequest.newImageUrls());
+            storeCommandService.addImages(store, StoreImageType.AVAILABLE_DRINK, storeImageUpdateRequest.newImageUrls());
         }
 
         // 2. 삭제할 이미지 처리 (removeImageIds)
@@ -28,4 +30,5 @@ public class MenuUpdateImagesUseCaseImpl implements UpdateImagesUseCase {
             storeCommandService.removeImages(storeImageUpdateRequest.removeImageIds());
         }
     }
+
 }

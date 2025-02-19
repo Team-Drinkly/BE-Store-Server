@@ -19,6 +19,8 @@ public interface StoreRepository extends JpaRepository<Store, Long> {
                 .orElseThrow(() -> new StoreException(STORE_NOT_FOUND));
     }
 
+    List<Store> findByOwnerId(Long ownerId);
+
     @Query(value = """
             SELECT s.*, 
                    6371 * acos(

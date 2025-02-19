@@ -75,3 +75,9 @@ dependencyManagement {
 tasks.named('test') {
 	useJUnitPlatform()
 }
+tasks.named('bootJar') {
+	mainClass = 'com.drinkhere.drinklystore.DrinklyStoreApplication'
+	archiveBaseName.set('store-service')
+	archiveFileName.set('store-service.jar')
+	archiveVersion.set("0.0.1")
+}
