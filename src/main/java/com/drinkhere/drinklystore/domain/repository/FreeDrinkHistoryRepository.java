@@ -7,6 +7,8 @@ import java.util.List;
 
 public interface FreeDrinkHistoryRepository extends JpaRepository<FreeDrinkHistory, Long> {
 
-    List<FreeDrinkHistory> findAllByStoreId(Long storeId);
+    List<FreeDrinkHistory> findTop3ByStoreIdOrderByCreatedDateDesc(Long storeId);
+
+    List<FreeDrinkHistory> findAllByStoreIdOrderByCreatedDateDesc(Long storeId);
 
 }

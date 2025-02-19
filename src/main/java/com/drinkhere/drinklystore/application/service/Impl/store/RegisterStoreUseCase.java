@@ -1,4 +1,4 @@
-package com.drinkhere.drinklystore.application.service.Impl;
+package com.drinkhere.drinklystore.application.service.Impl.store;
 
 import com.drinkhere.drinklystore.clientgeocoding.dto.Coordinates;
 import com.drinkhere.drinklystore.clientgeocoding.service.GeocodingUseCase;

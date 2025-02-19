@@ -1,4 +1,4 @@
-package com.drinkhere.drinklystore.application.service.Impl;
+package com.drinkhere.drinklystore.application.service.Impl.store;
 
 import com.drinkhere.drinklystore.common.annotation.ApplicationService;
 import com.drinkhere.drinklystore.domain.dto.request.UpdateStoreRequest;
