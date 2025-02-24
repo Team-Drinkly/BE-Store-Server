@@ -19,7 +19,7 @@ public class StoreController implements StoreControllerDocs {
     private final GetStoreUseCase getStoreUseCase;
 
 
-    @GetMapping
+    @GetMapping("/list")
     public ApplicationResponse<List<GetStoresByLocationResponse>> getStoresByLocation(
             @RequestParam(defaultValue = "37.63022195215973") double latitude,
             @RequestParam(defaultValue = "127.07671771357782") double longitude,
@@ -30,7 +30,7 @@ public class StoreController implements StoreControllerDocs {
         return ApplicationResponse.ok(stores, "제휴 업체 리스트 반환했습니다.");
     }
 
-    @GetMapping("/{storeId}")
+    @GetMapping("/list/{storeId}")
     public ApplicationResponse<GetStoreResponse> getStore(@PathVariable Long storeId) {
         return ApplicationResponse.ok(getStoreUseCase.getStore(storeId), "제휴 업체 상세 정보입니다.");
     }
