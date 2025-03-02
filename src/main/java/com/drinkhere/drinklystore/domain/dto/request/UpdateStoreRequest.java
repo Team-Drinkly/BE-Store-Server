@@ -1,9 +1,12 @@
 package com.drinkhere.drinklystore.domain.dto.request;
 
+import com.drinkhere.drinklystore.domain.dto.OpeningHours;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
+
+import java.util.List;
 
 @Schema(description = "제휴 업체 정보 업데이트")
 public record UpdateStoreRequest(
@@ -20,7 +23,7 @@ public record UpdateStoreRequest(
         String storeDescription,
 
         @Schema(description = "제휴 업체 운영 시간", example = "Notion을 참고해주세요.(JSON 직렬화하여 String으로 저장)", required = false)
-        String openingHours,
+        List<OpeningHours> openingHours,
 
         @Schema(description = "제휴 업체 전화번호", example = "02-1234-5678", required = true)
         @NotBlank(message = "제휴 업체 전화번호는 필수입니다.")
