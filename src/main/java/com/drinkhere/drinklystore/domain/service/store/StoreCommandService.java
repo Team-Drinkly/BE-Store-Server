@@ -1,6 +1,7 @@
 package com.drinkhere.drinklystore.domain.service.store;
 
 import com.drinkhere.drinklystore.common.annotation.DomainService;
+import com.drinkhere.drinklystore.domain.dto.OpeningHours;
 import com.drinkhere.drinklystore.domain.dto.request.ImageInfo;
 import com.drinkhere.drinklystore.domain.dto.request.UpdateStoreRequest;
 import com.drinkhere.drinklystore.domain.entity.Store;
@@ -8,6 +9,9 @@ import com.drinkhere.drinklystore.domain.entity.StoreImage;
 import com.drinkhere.drinklystore.domain.enums.StoreImageType;
 import com.drinkhere.drinklystore.domain.repository.StoreImageRepository;
 import com.drinkhere.drinklystore.domain.repository.StoreRepository;
+import com.drinkhere.drinklystore.util.JsonUtil;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,7 +24,7 @@ import java.util.stream.Collectors;
 public class StoreCommandService {
     private final StoreRepository storeRepository;
     private final StoreImageRepository storeImageRepository;
-    
+
     public Store save(final Store store) {
         return storeRepository.save(store);
     }
@@ -30,7 +34,7 @@ public class StoreCommandService {
         if (updateStoreRequest.storeName() != null) store.setStoreName(updateStoreRequest.storeName());
         if (updateStoreRequest.storeMainImageUrl() != null) store.setStoreMainImageUrl(updateStoreRequest.storeMainImageUrl());
         if (updateStoreRequest.storeDescription() != null) store.setStoreDescription(updateStoreRequest.storeDescription());
-        if (updateStoreRequest.openingHours() != null) store.setOpeningHours(updateStoreRequest.openingHours());
+        if (updateStoreRequest.openingHours() != null) store.setOpeningHours(JsonUtil.serialization(updateStoreRequest.openingHours()));
         if (updateStoreRequest.storeTel() != null) store.setStoreTel(updateStoreRequest.storeTel());
         if (updateStoreRequest.storeAddress() != null) store.setStoreAddress(updateStoreRequest.storeAddress());
         if (updateStoreRequest.instagramUrl() != null) store.setInstagramUrl(updateStoreRequest.instagramUrl());

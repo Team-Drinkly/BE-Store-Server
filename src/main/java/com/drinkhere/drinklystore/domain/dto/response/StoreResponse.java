@@ -1,6 +1,12 @@
 package com.drinkhere.drinklystore.domain.dto.response;
 
+import com.drinkhere.drinklystore.domain.dto.OpeningHours;
 import com.drinkhere.drinklystore.domain.entity.Store;
+import com.drinkhere.drinklystore.util.JsonUtil;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import java.util.List;
 
 public record StoreResponse(
         Long storeId,
@@ -8,7 +14,7 @@ public record StoreResponse(
         String storeName,
         String storeMainImageUrl,
         String storeDescription,
-        String openingHours,
+        List<OpeningHours> openingHours,
         String storeTel,
         String storeAddress,
         String storeDetailAddress,
@@ -18,6 +24,8 @@ public record StoreResponse(
         String longitude,
         String businessRegistrationNumber
 ) {
+    private static final ObjectMapper objectMapper = new ObjectMapper();
+
     public static StoreResponse toDto(Store store) {
         return new StoreResponse(
                 store.getId(),
@@ -25,7 +33,7 @@ public record StoreResponse(
                 store.getStoreName(),
                 store.getStoreMainImageUrl(),
                 store.getStoreDescription(),
-                store.getOpeningHours(),
+                JsonUtil.deserialization(store.getOpeningHours()),
                 store.getStoreTel(),
                 store.getStoreAddress(),
                 store.getStoreDetailAddress(),
@@ -36,4 +44,6 @@ public record StoreResponse(
                 store.getBusinessRegistrationNumber()
         );
     }
+
+
 }
