@@ -6,6 +6,7 @@ import com.drinkhere.drinklystore.application.service.Impl.store.GetStoresByLoca
 import com.drinkhere.drinklystore.common.response.ApplicationResponse;
 import com.drinkhere.drinklystore.domain.dto.response.GetStoresByLocationResponse;
 import com.drinkhere.drinklystore.domain.dto.response.GetStoreResponse;
+import com.drinkhere.drinklystore.domain.dto.response.MemberIdResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -33,6 +34,14 @@ public class StoreController implements StoreControllerDocs {
     @GetMapping("/list/{storeId}")
     public ApplicationResponse<GetStoreResponse> getStore(@PathVariable Long storeId) {
         return ApplicationResponse.ok(getStoreUseCase.getStore(storeId), "제휴 업체 상세 정보입니다.");
+    }
+
+
+    @GetMapping("/temp")
+    public ApplicationResponse<MemberIdResponse> getMemberId(
+            @RequestHeader("member-id") Long memberId
+    ) {
+        return ApplicationResponse.ok(new MemberIdResponse(memberId), "멤버 ID입니다");
     }
 
 

@@ -14,6 +14,7 @@ public record GetStoresByLocationResponse(
         String storeMainImageUrl,
         String latitude,
         String longitude,
+        String openingHours,
         String storeTel,
         String storeAddress,
         List<String> availableDrinks
@@ -32,6 +33,7 @@ public record GetStoresByLocationResponse(
                 presignedUrl,
                 store.getLatitude(),
                 store.getLongitude(),
+                store.getOpeningHours(),
                 store.getStoreTel(),
                 store.getStoreAddress(),
                 availableDrinks

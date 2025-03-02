@@ -11,10 +11,7 @@ import com.drinkhere.drinklystore.common.response.ApplicationResponse;
 import com.drinkhere.drinklystore.domain.dto.request.RegisterStoreRequest;
 import com.drinkhere.drinklystore.domain.dto.request.StoreImageUpdateRequest;
 import com.drinkhere.drinklystore.domain.dto.request.UpdateStoreRequest;
-import com.drinkhere.drinklystore.domain.dto.response.GetFreeDrinkHistoryResponse;
-import com.drinkhere.drinklystore.domain.dto.response.GetOwnerMainPageResponse;
-import com.drinkhere.drinklystore.domain.dto.response.GetStoreListResponse;
-import com.drinkhere.drinklystore.domain.dto.response.StoreResponse;
+import com.drinkhere.drinklystore.domain.dto.response.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -83,5 +80,12 @@ public class StoreAdminController implements StoreAdminControllerDocs {
             @RequestHeader(value = "owner-id", required = false) Long ownerId
     ) {
         return ApplicationResponse.ok(getFreeDrinkHistoriesUseCase.getFreeDrinkHistories(storeId),"Free Drink History를 성공적으로 조회했습니다.");
+    }
+
+    @GetMapping("/temp")
+    public ApplicationResponse<OwnerIdResponse> getMemberId(
+            @RequestHeader("owner-id") Long ownerId
+    ) {
+        return ApplicationResponse.ok(new OwnerIdResponse(ownerId), "사장님 ID입니다");
     }
 }
