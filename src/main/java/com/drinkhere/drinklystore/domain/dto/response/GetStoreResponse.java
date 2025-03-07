@@ -66,30 +66,39 @@ public record GetStoreResponse(
 
             // 오늘의 요일에 해당하는 OpeningHours 찾기
             OpeningHours todayOpeningHours = openingHoursList.get(todayIndex);
-
             if (todayOpeningHours != null) {
-                // 오늘이 휴일인 경우
+                // 오늘이 휴일인지 확인
                 if (!todayOpeningHours.isOpen()) {
-                    isOpen = "휴무일";
+                    isOpen = "오늘 휴무";
                     openingInfo = "매주 " + getKoreanDay(DayOfWeek.valueOf(todayOpeningHours.day())) + " 휴무";
                 } else {
-                    // 영업시간에 현재시간이 포함되지 않으면 영업 종료 처리
+                    // 현재 시간 가져오기
                     LocalTime currentTime = LocalTime.now();
                     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
                     LocalTime openTime = LocalTime.parse(todayOpeningHours.openTime(), formatter);
                     LocalTime closeTime = LocalTime.parse(todayOpeningHours.closeTime(), formatter);
 
-                    // 영업시간에 현재시간이 포함되지 않으면
-                    if (currentTime.isBefore(openTime) || currentTime.isAfter(closeTime)) {
-                        isOpen = "영업종료";
-                        // 다음날 영업 시작 시간 찾기 (현재 요일 인덱스 + 1)
-                        int nextDayIndex = (todayIndex + 1) % 7;  // 다음날의 인덱스 (0-6 범위로 순환)
-                        OpeningHours nextDayOpeningHours = openingHoursList.get(nextDayIndex);
-                        openingInfo = nextDayOpeningHours.openTime() + "에 영업 시작"; // 다음날의 영업 시작 시간
-                    } else {
-                        // 영업 중인 경우
+                    // 만약 closeTime이 "00:00 이후"이면 -> 다음 날 새벽까지 영업하는 것으로 간주
+                    boolean closesNextDay = closeTime.isBefore(openTime);  // 예: 18:00 ~ 01:00
+
+                    // 영업 중인지 판별
+                    if ((currentTime.isAfter(openTime) && currentTime.isBefore(closeTime)) ||
+                            (closesNextDay && (currentTime.isAfter(openTime) || currentTime.isBefore(closeTime)))) {
                         isOpen = "영업중";
-                        openingInfo = closeTime.format(formatter) + "에 영업 종료";
+                        openingInfo = closeTime + " 영업종료";
+                    } else {
+                        isOpen = "영업종료";
+
+                        // 다음 영업일 찾기
+                        int nextDayIndex = (todayIndex + 1) % 7;
+                        OpeningHours nextDayOpeningHours = openingHoursList.get(nextDayIndex);
+
+                        // 다음 영업일이 휴무가 아닐 경우, 영업 시작 시간을 표시
+                        if (nextDayOpeningHours.isOpen()) {
+                            openingInfo = nextDayOpeningHours.openTime() + " 영업시작";
+                        } else {
+                            openingInfo = "내일 휴무";
+                        }
                     }
                 }
             }
