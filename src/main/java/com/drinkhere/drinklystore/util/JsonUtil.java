@@ -21,6 +21,7 @@ public class JsonUtil {
     // JSON 문자열을 List<OpeningHours>로 역직렬화
     public static List<OpeningHours> deserialization(String json) {
         try {
+            System.out.println("hi");
             return objectMapper.readValue(json, objectMapper.getTypeFactory().constructCollectionType(List.class, OpeningHours.class));
         } catch (JsonProcessingException e) {
             throw new RuntimeException("운영 시간 역직렬화 실패", e);
