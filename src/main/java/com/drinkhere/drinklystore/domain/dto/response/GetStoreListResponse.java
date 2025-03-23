@@ -8,6 +8,6 @@ public record GetStoreListResponse(
         String storeAddress
 ) {
     public static GetStoreListResponse toDto(Store store) {
-        return new GetStoreListResponse(store.getId(), store.getStoreName(), store.getStoreAddress() + store.getStoreDetailAddress());
+        return new GetStoreListResponse(store.getId(), store.getStoreName(), store.getStoreAddress() + " " + store.getStoreDetailAddress());
     }
 }
