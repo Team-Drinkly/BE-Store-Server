@@ -63,6 +63,7 @@ public class StoreAdminController implements StoreAdminControllerDocs {
     public ApplicationResponse<List<GetStoreListResponse>> getStoreList(
             @RequestHeader(value = "owner-id", required = false) Long ownerId
     ) {
+        System.out.println(ownerId);
         return ApplicationResponse.ok(getStoreListUseCase.getStoreList(ownerId), "해당 사장님이 등록한 제휴 업체 목록입니다.");
     }
 
