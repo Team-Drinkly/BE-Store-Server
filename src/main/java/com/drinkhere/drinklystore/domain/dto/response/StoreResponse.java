@@ -12,6 +12,8 @@ public record StoreResponse(
         String storeName,
         String storeMainImageUrl,
         String storeDescription,
+        String isOpen,
+        String openingInfo,
         List<OpeningHours> openingHours,
         String storeTel,
         String storeAddress,
@@ -20,7 +22,8 @@ public record StoreResponse(
         String availableDays,
         String latitude,
         String longitude,
-        String businessRegistrationNumber
+        List<ImageInfoResponse> availableDrinkImageUrls,
+        List<ImageInfoResponse> menuImageUrls
 ) {
 
     public static StoreResponse toDto(Store store) {
@@ -33,6 +36,8 @@ public record StoreResponse(
                 store.getStoreName(),
                 store.getStoreMainImageUrl(),
                 store.getStoreDescription(),
+                null,
+                null,
                 openingHours,
                 store.getStoreTel(),
                 store.getStoreAddress(),
@@ -41,7 +46,8 @@ public record StoreResponse(
                 store.getAvailableDays(),
                 store.getLatitude(),
                 store.getLongitude(),
-                store.getBusinessRegistrationNumber()
+                null,
+                null
         );
     }
 }
