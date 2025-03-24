@@ -18,6 +18,7 @@ public class StoreImage {
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
+
     @JoinColumn(name = "fk_store_id", nullable = false)
     private Store store;
 

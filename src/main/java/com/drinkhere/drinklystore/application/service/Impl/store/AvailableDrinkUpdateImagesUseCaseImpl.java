@@ -3,6 +3,7 @@ package com.drinkhere.drinklystore.application.service.Impl.store;
 import com.drinkhere.drinklystore.application.service.UpdateImagesUseCase;
 import com.drinkhere.drinklystore.common.annotation.ApplicationService;
 import com.drinkhere.drinklystore.domain.dto.request.StoreImageUpdateRequest;
+import com.drinkhere.drinklystore.domain.dto.response.ImageInfoResponse;
 import com.drinkhere.drinklystore.domain.dto.response.StoreResponse;
 import com.drinkhere.drinklystore.domain.entity.Store;
 import com.drinkhere.drinklystore.domain.enums.StoreImageType;
@@ -10,6 +11,8 @@ import com.drinkhere.drinklystore.domain.service.store.StoreCommandService;
 import com.drinkhere.drinklystore.domain.service.store.StoreQueryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @ApplicationService
 @RequiredArgsConstructor
@@ -32,7 +35,22 @@ public class AvailableDrinkUpdateImagesUseCaseImpl implements UpdateImagesUseCas
         if (storeImageUpdateRequest.removeImageIds() != null && !storeImageUpdateRequest.removeImageIds().isEmpty()) {
             storeCommandService.removeImages(storeImageUpdateRequest.removeImageIds());
         }
-        return StoreResponse.toDto(store);
-    }
 
+        // 4. Store 엔티티 업데이트 후 다시 조회
+        Store updatedStore = storeQueryService.findByIdWithImages(storeId);
+
+        // 5. 이미지 타입별로 분리
+        List<ImageInfoResponse> availableDrinkImageUrls = updatedStore.getStoreImages().stream()
+                .filter(image -> image.getStoreImageType() == StoreImageType.AVAILABLE_DRINK)
+                .map(image -> new ImageInfoResponse(image.getId(), image.getStoreImageUrl(), image.getStoreImageDescription()))
+                .toList();
+
+        List<ImageInfoResponse> menuImageUrls = updatedStore.getStoreImages().stream()
+                .filter(image -> image.getStoreImageType() == StoreImageType.MENU)
+                .map(image -> new ImageInfoResponse(image.getId(), image.getStoreImageUrl(), image.getStoreImageDescription()))
+                .toList();
+
+        // 6. StoreResponse DTO 반환
+        return StoreResponse.toDto(updatedStore, availableDrinkImageUrls, menuImageUrls);
+    }
 }
