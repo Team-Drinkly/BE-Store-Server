@@ -15,7 +15,7 @@ public class UpdateStoreUseCase {
     private final StoreCommandService storeCommandService;
 
     public StoreResponse updateStore(Long storeId, UpdateStoreRequest updateStoreRequest) {
-        Store store = storeQueryService.findById(storeId);
-        return StoreResponse.toDto(storeCommandService.updateStore(store, updateStoreRequest));
+        Store updatedStore = storeCommandService.updateStore(storeQueryService.findById(storeId), updateStoreRequest);
+        return StoreResponse.toDto(updatedStore);
     }
 }

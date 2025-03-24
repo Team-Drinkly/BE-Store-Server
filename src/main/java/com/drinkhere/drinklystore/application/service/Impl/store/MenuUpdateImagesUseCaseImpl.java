@@ -3,6 +3,7 @@ package com.drinkhere.drinklystore.application.service.Impl.store;
 import com.drinkhere.drinklystore.application.service.UpdateImagesUseCase;
 import com.drinkhere.drinklystore.common.annotation.ApplicationService;
 import com.drinkhere.drinklystore.domain.dto.request.StoreImageUpdateRequest;
+import com.drinkhere.drinklystore.domain.dto.response.StoreResponse;
 import com.drinkhere.drinklystore.domain.entity.Store;
 import com.drinkhere.drinklystore.domain.enums.StoreImageType;
 import com.drinkhere.drinklystore.domain.service.store.StoreCommandService;
@@ -16,7 +17,7 @@ public class MenuUpdateImagesUseCaseImpl implements UpdateImagesUseCase {
     private final StoreCommandService storeCommandService;
 
     @Override
-    public void updateImages(Long storeId, StoreImageUpdateRequest storeImageUpdateRequest) {
+    public StoreResponse updateImages(Long storeId, StoreImageUpdateRequest storeImageUpdateRequest) {
         Store store = storeQueryService.findById(storeId);
         // 1. 새로 추가할 이미지 처리 (newImageUrls)
         if (storeImageUpdateRequest.newImageUrls() != null && !storeImageUpdateRequest.newImageUrls().isEmpty()) {
@@ -27,5 +28,7 @@ public class MenuUpdateImagesUseCaseImpl implements UpdateImagesUseCase {
         if (storeImageUpdateRequest.removeImageIds() != null && !storeImageUpdateRequest.removeImageIds().isEmpty()) {
             storeCommandService.removeImages(storeImageUpdateRequest.removeImageIds());
         }
+
+        return StoreResponse.toDto(store);
     }
 }

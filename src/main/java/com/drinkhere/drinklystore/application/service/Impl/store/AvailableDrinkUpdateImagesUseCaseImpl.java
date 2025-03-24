@@ -3,11 +3,13 @@ package com.drinkhere.drinklystore.application.service.Impl.store;
 import com.drinkhere.drinklystore.application.service.UpdateImagesUseCase;
 import com.drinkhere.drinklystore.common.annotation.ApplicationService;
 import com.drinkhere.drinklystore.domain.dto.request.StoreImageUpdateRequest;
+import com.drinkhere.drinklystore.domain.dto.response.StoreResponse;
 import com.drinkhere.drinklystore.domain.entity.Store;
 import com.drinkhere.drinklystore.domain.enums.StoreImageType;
 import com.drinkhere.drinklystore.domain.service.store.StoreCommandService;
 import com.drinkhere.drinklystore.domain.service.store.StoreQueryService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.transaction.annotation.Transactional;
 
 @ApplicationService
 @RequiredArgsConstructor
@@ -16,7 +18,8 @@ public class AvailableDrinkUpdateImagesUseCaseImpl implements UpdateImagesUseCas
     private final StoreCommandService storeCommandService;
 
     @Override
-    public void updateImages(Long storeId, StoreImageUpdateRequest storeImageUpdateRequest) {
+    @Transactional
+    public StoreResponse updateImages(Long storeId, StoreImageUpdateRequest storeImageUpdateRequest) {
         // 1. Store 엔티티 조회
         Store store = storeQueryService.findById(storeId);
 
@@ -29,6 +32,7 @@ public class AvailableDrinkUpdateImagesUseCaseImpl implements UpdateImagesUseCas
         if (storeImageUpdateRequest.removeImageIds() != null && !storeImageUpdateRequest.removeImageIds().isEmpty()) {
             storeCommandService.removeImages(storeImageUpdateRequest.removeImageIds());
         }
+        return StoreResponse.toDto(store);
     }
 
 }

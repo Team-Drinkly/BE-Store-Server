@@ -75,7 +75,7 @@ public interface StoreAdminControllerDocs {
                     "이미지 타입은 `availableDrinks` 또는 `menuImages`로 구분되며, 추가할 이미지는 `newImageUrls` 리스트에 제공되고, 삭제할 이미지는 `removeImageIds` 리스트에 제공됩니다." +
                     "요청 시 `JWT 토큰`을 입력하면 Gateway에서 자동으로 `owner-id`를 추출하여 헤더에 추가하므로, 별도로 포함할 필요 없습니다."
     )
-    ApplicationResponse<String> updateStoreImages(
+    ApplicationResponse<StoreResponse> updateStoreImages(
             @Parameter(description = "조회할 제휴 업체의 고유 ID", required = true, example = "1") @PathVariable(value = "storeId", required = true)  Long storeId,
             @Parameter(description = "조회할 제휴 업체 사장님의 고유 ID", required = false, example = "1") @RequestHeader(value = "owner-id", required = false) Long ownerId,
             @Valid @RequestBody StoreImageUpdateRequest request

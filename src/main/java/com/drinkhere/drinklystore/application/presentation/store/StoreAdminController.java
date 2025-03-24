@@ -49,14 +49,15 @@ public class StoreAdminController implements StoreAdminControllerDocs {
 
 
     @PatchMapping("/{storeId}/images")
-    public ApplicationResponse<String> updateStoreImages(
+    public ApplicationResponse<StoreResponse> updateStoreImages(
             @PathVariable Long storeId,
             @RequestHeader(value = "owner-id", required = false) Long ownerId,
             @RequestBody StoreImageUpdateRequest request
     ) {
-        if (request.type().equals("availableDrinks")) availableDrinkUpdateImagesUseCaseImpl.updateImages(storeId, request);
-        else if (request.type().equals("menu")) menuUpdateImagesUseCaseImpl.updateImages(storeId, request);
-        return ApplicationResponse.ok( "업체 이미지 업데이트를 성공적으로 처리했습니다.");
+        StoreResponse storeResponse = null;
+        if (request.type().equals("availableDrinks")) storeResponse = availableDrinkUpdateImagesUseCaseImpl.updateImages(storeId, request);
+        else if (request.type().equals("menu")) storeResponse = menuUpdateImagesUseCaseImpl.updateImages(storeId, request);
+        return ApplicationResponse.ok(storeResponse, "업체 이미지 업데이트를 성공적으로 처리했습니다.");
     }
 
     @GetMapping("/owner")
