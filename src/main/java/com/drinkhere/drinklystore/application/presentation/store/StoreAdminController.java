@@ -12,6 +12,7 @@ import com.drinkhere.drinklystore.domain.dto.request.RegisterStoreRequest;
 import com.drinkhere.drinklystore.domain.dto.request.StoreImageUpdateRequest;
 import com.drinkhere.drinklystore.domain.dto.request.UpdateStoreRequest;
 import com.drinkhere.drinklystore.domain.dto.response.*;
+import com.drinkhere.drinklystore.domain.service.store.StoreCommandService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 

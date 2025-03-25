@@ -74,7 +74,7 @@ public class Store extends BaseTimeEntity {
         this.latitude = latitude;
         this.longitude = longitude;
     }
-
+    public void setId(Long id) {this.id = id;}
     public void setStoreName(String storeName) {
         this.storeName = storeName;
     }

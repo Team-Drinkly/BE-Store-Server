@@ -9,6 +9,7 @@ import com.drinkhere.drinklystore.domain.entity.Store;
 import com.drinkhere.drinklystore.domain.enums.StoreImageType;
 import com.drinkhere.drinklystore.domain.service.store.StoreCommandService;
 import com.drinkhere.drinklystore.domain.service.store.StoreQueryService;
+import com.drinkhere.drinklystore.infras3.service.PresignedUrlService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,6 +20,7 @@ import java.util.List;
 public class AvailableDrinkUpdateImagesUseCaseImpl implements UpdateImagesUseCase {
     private final StoreQueryService storeQueryService;
     private final StoreCommandService storeCommandService;
+    private final PresignedUrlService presignedUrlService;
 
     @Override
     @Transactional
@@ -50,7 +52,9 @@ public class AvailableDrinkUpdateImagesUseCaseImpl implements UpdateImagesUseCas
                 .map(image -> new ImageInfoResponse(image.getId(), image.getStoreImageUrl(), image.getStoreImageDescription()))
                 .toList();
 
+        String presignedUrl = presignedUrlService.getPresignedUrlForGet(updatedStore.getStoreMainImageUrl());
+
         // 6. StoreResponse DTO 반환
-        return StoreResponse.toDto(updatedStore, availableDrinkImageUrls, menuImageUrls);
+        return StoreResponse.toDto(updatedStore, presignedUrl, availableDrinkImageUrls, menuImageUrls);
     }
 }

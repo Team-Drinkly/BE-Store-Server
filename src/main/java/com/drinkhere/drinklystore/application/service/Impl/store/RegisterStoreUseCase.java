@@ -16,7 +16,7 @@ public class RegisterStoreUseCase {
 
     public StoreResponse registerStore(RegisterStoreRequest request) {
         Coordinates coordinates = geocodingUseCase.getCoordinates(request.storeAddress());
-        return StoreResponse.toDto(storeCommandService.save(request.toEntity(coordinates)), null, null);
+        return StoreResponse.toDto(storeCommandService.save(request.toEntity(coordinates)), null, null, null);
     }
 
 }

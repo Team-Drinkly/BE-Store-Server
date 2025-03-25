@@ -18,3 +18,6 @@ spring:
       hibernate.dialect: org.hibernate.dialect.MySQLDialect
     hibernate:
       ddl-auto: update
+
+member-service:
+  url: http://localhost:8000/api/v1/member

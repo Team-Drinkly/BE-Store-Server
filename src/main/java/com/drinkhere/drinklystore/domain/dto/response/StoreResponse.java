@@ -26,7 +26,7 @@ public record StoreResponse(
         List<ImageInfoResponse> menuImageUrls
 ) {
 
-    public static StoreResponse toDto(Store store, List<ImageInfoResponse> availableDrinkImageUrls, List<ImageInfoResponse> menuImageUrls) {
+    public static StoreResponse toDto(Store store, String storeMainImageUrl, List<ImageInfoResponse> availableDrinkImageUrls, List<ImageInfoResponse> menuImageUrls) {
         List<OpeningHours> openingHours;
         if (store.getOpeningHours() == null) openingHours = null;
         else openingHours = JsonUtil.deserialization(store.getOpeningHours());
@@ -35,7 +35,7 @@ public record StoreResponse(
                 store.getId(),
                 store.getOwnerId(),
                 store.getStoreName(),
-                store.getStoreMainImageUrl(),
+                storeMainImageUrl,
                 store.getStoreDescription(),
                 null,
                 null,
