@@ -27,7 +27,6 @@ public record UpdateStoreRequest(
 
         @Schema(description = "제휴 업체 전화번호", example = "02-1234-5678", required = true)
         @NotBlank(message = "제휴 업체 전화번호는 필수입니다.")
-        @Pattern(regexp = "^\\d{2,3}-\\d{3,4}-\\d{4}$", message = "유효한 전화번호 형식이 아닙니다. (예: 02-1234-5678)")
         @Size(max = 30, message = "전화번호는 30자 이하로 입력해야 합니다.")
         String storeTel,
 
