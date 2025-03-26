@@ -42,12 +42,12 @@ public class MenuUpdateImagesUseCaseImpl implements UpdateImagesUseCase {
         // 5. 이미지 타입별로 분리
         List<ImageInfoResponse> availableDrinkImageUrls = updatedStore.getStoreImages().stream()
                 .filter(image -> image.getStoreImageType() == StoreImageType.AVAILABLE_DRINK)
-                .map(image -> new ImageInfoResponse(image.getId(), image.getStoreImageUrl(), image.getStoreImageDescription()))
+                .map(image -> new ImageInfoResponse(image.getId(), presignedUrlService.getPresignedUrlForGet(image.getStoreImageUrl()), image.getStoreImageDescription()))
                 .toList();
 
         List<ImageInfoResponse> menuImageUrls = updatedStore.getStoreImages().stream()
                 .filter(image -> image.getStoreImageType() == StoreImageType.MENU)
-                .map(image -> new ImageInfoResponse(image.getId(), image.getStoreImageUrl(), image.getStoreImageDescription()))
+                .map(image -> new ImageInfoResponse(image.getId(), presignedUrlService.getPresignedUrlForGet(image.getStoreImageUrl()), image.getStoreImageDescription()))
                 .toList();
 
         String presignedUrl = presignedUrlService.getPresignedUrlForGet(updatedStore.getStoreMainImageUrl());
