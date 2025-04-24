@@ -25,6 +25,7 @@ repositories {
 
 ext {
 	set('springCloudVersion', "2023.0.5")
+	set('resilience4jVersion', "2.2.0")
 }
 
 dependencies {
@@ -54,6 +55,12 @@ dependencies {
 
 	// OpenFeign 마이크로 서비스 간 통신
 	implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
+
+	// Resilience4j
+	implementation "io.github.resilience4j:resilience4j-spring-boot3:${resilience4jVersion}"
+	implementation "io.github.resilience4j:resilience4j-retry:${resilience4jVersion}"
+	implementation "io.github.resilience4j:resilience4j-circuitbreaker:${resilience4jVersion}"
+	implementation "io.github.resilience4j:resilience4j-timelimiter:${resilience4jVersion}"
 
 	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.4.0'
 

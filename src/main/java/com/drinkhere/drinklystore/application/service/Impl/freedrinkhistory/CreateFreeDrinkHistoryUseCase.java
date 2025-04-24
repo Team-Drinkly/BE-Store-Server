@@ -15,6 +15,7 @@ import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.concurrent.TimeUnit;
 
 import static com.drinkhere.drinklystore.common.exception.store.StoreErrorCode.ALREADY_USED_TODAY;
@@ -59,6 +60,39 @@ public class CreateFreeDrinkHistoryUseCase {
         long ttl = Duration.between(now, expirationTime).getSeconds();
 
         // Redis에 저장
+        redisUtil.saveAsValue(redisKey, "USED", ttl, TimeUnit.SECONDS);
+    }
+
+    public void createFreeDrinkHistoryV2(String isSubscribe, Long memberId, Long subscribeId, CreateFreeDrinkHistoryRequest createFreeDrinkHistoryRequest) {
+        if (isSubscribe.equals("false")) throw new StoreException(NOT_SUBSCIRBER);
+
+        Store store = storeQueryService.findById(createFreeDrinkHistoryRequest.storeId());
+
+        // ✅ 날짜 + 멤버 + 가게 기준의 Redis Key 생성
+        String today = LocalDate.now(ZoneId.of("Asia/Seoul")).format(DateTimeFormatter.ofPattern("yyyyMMdd"));
+        String redisKey = REDIS_KEY_PREFIX + today + ":" + memberId + ":" + store.getId();
+
+        // ✅ 오늘 해당 가게에서 이미 사용했는지 체크
+        if (redisUtil.hasKey(redisKey)) {
+            throw new StoreException(ALREADY_USED_TODAY);
+        }
+
+        // ✅ 회원 정보 조회
+        MemberResponse memberResponse = memberClient.getMemberById(memberId);
+        String memberNickname = memberResponse.getNickname();
+
+        // ✅ 기록 저장
+        freeDrinkHistoryCommandService.createFreeDrinkHistory(memberId, memberNickname, subscribeId, store, createFreeDrinkHistoryRequest.providedDrink());
+
+        // ✅ TTL 계산 (정오 기준)
+        LocalDateTime now = LocalDateTime.now(ZoneId.of("Asia/Seoul"));
+        LocalDateTime todayNoon = LocalDate.now().atTime(12, 0);
+        LocalDateTime expirationTime = now.isAfter(todayNoon)
+                ? todayNoon.plusDays(1)
+                : todayNoon;
+        long ttl = Duration.between(now, expirationTime).getSeconds();
+
+        // ✅ Redis에 단일 키로 저장 (value는 그냥 "USED")
         redisUtil.saveAsValue(redisKey, "USED", ttl, TimeUnit.SECONDS);
     }
 
