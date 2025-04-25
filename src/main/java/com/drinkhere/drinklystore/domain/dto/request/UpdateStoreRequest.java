@@ -42,6 +42,8 @@ public record UpdateStoreRequest(
 
         @Schema(description = "이용 가능한 가능한 요일", example = "[\"월\", \"화\", \"수\", \"목\", \"금\"]", required = false)
         @Size(max = 50, message = "이용 가능한 가능한 요일은 50자 이하로 입력해야 합니다.")
-        String availableDays
+        String availableDays,
+
+        Boolean isReady
 ) {
 }

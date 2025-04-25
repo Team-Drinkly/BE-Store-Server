@@ -39,6 +39,7 @@ public class StoreCommandService {
         if (updateStoreRequest.storeAddress() != null) store.setStoreAddress(updateStoreRequest.storeAddress());
         if (updateStoreRequest.instagramUrl() != null) store.setInstagramUrl(updateStoreRequest.instagramUrl());
         if (updateStoreRequest.availableDays() != null) store.setAvailableDays(updateStoreRequest.availableDays());
+        if (updateStoreRequest.isReady() != null) store.setIsReady(updateStoreRequest.isReady());
 
         // DirtyChecking
         return store;

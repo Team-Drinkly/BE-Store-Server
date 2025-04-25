@@ -36,6 +36,7 @@ public interface StoreRepository extends JpaRepository<Store, Long> {
                     + sin(radians(:latitude)) * sin(radians(CAST(s.latitude AS DOUBLE)))
                 )
             ) < :radius
+            AND s.is_ready = true
             AND (:searchKeyword IS NULL OR s.store_name LIKE %:searchKeyword%)
             ORDER BY distance ASC
     """, nativeQuery = true)
@@ -46,7 +47,7 @@ public interface StoreRepository extends JpaRepository<Store, Long> {
 
 
 
-    @Query("SELECT s FROM Store s LEFT JOIN FETCH s.storeImages WHERE s.id = :storeId")
+    @Query("SELECT s FROM Store s LEFT JOIN FETCH s.storeImages WHERE s.id = :storeId AND s.isReady = true")
     Optional<Store> findByIdWithImages(@Param("storeId") Long storeId);
 
     default Store findByIdWithImagesOrThrow(Long storeId) {
