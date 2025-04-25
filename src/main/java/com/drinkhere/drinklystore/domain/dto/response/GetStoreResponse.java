@@ -7,9 +7,11 @@ import com.drinkhere.drinklystore.domain.enums.StoreImageType;
 import com.drinkhere.drinklystore.util.JsonUtil;
 
 import java.time.DayOfWeek;
+import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.StringTokenizer;
 import java.util.stream.Collectors;
 
 public record GetStoreResponse(
@@ -19,6 +21,7 @@ public record GetStoreResponse(
         String storeMainImageUrl,
         String storeDescription,
         String isOpen,
+        boolean isAvailable,
         String openingInfo,
         List<OpeningHours> openingHours,
         String storeTel,
@@ -104,6 +107,27 @@ public record GetStoreResponse(
             }
         }
 
+        DayOfWeek dayOfWeek = LocalDate.now().getDayOfWeek();
+        String koreanDay = switch (dayOfWeek) {
+            case MONDAY -> "월";
+            case TUESDAY -> "화";
+            case WEDNESDAY -> "수";
+            case THURSDAY -> "목";
+            case FRIDAY -> "금";
+            case SATURDAY -> "토";
+            case SUNDAY -> "일";
+        };
+
+        boolean isAvailable = false;
+        StringTokenizer st = new StringTokenizer(store.getAvailableDays(), " ");
+        while (st.hasMoreTokens()) {
+            String token = st.nextToken();
+            if (token.equals(koreanDay) && isOpen.equals("영업중")) {
+                isAvailable = true;
+                break;
+            }
+        }
+
         return new GetStoreResponse(
                 store.getId(),
                 store.getOwnerId(),
@@ -111,6 +135,7 @@ public record GetStoreResponse(
                 presignedUrl,
                 store.getStoreDescription(),
                 isOpen,
+                isAvailable,
                 openingInfo,
                 openingHoursList,
                 store.getStoreTel(),

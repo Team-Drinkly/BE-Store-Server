@@ -63,37 +63,33 @@ public class CreateFreeDrinkHistoryUseCase {
         redisUtil.saveAsValue(redisKey, "USED", ttl, TimeUnit.SECONDS);
     }
 
-    public void createFreeDrinkHistoryV2(String isSubscribe, Long memberId, Long subscribeId, CreateFreeDrinkHistoryRequest createFreeDrinkHistoryRequest) {
+    public void createFreeDrinkHistoryV2(String isSubscribe, Long memberId, Long subscribeId, CreateFreeDrinkHistoryRequest request) {
         if (isSubscribe.equals("false")) throw new StoreException(NOT_SUBSCIRBER);
 
-        Store store = storeQueryService.findById(createFreeDrinkHistoryRequest.storeId());
+        Store store = storeQueryService.findById(request.storeId());
 
-        // ✅ 날짜 + 멤버 + 가게 기준의 Redis Key 생성
-        String today = LocalDate.now(ZoneId.of("Asia/Seoul")).format(DateTimeFormatter.ofPattern("yyyyMMdd"));
-        String redisKey = REDIS_KEY_PREFIX + today + ":" + memberId + ":" + store.getId();
+        LocalDate standardDate = getStandardDate();
+        String dateStr = standardDate.format(DateTimeFormatter.ofPattern("yyyyMMdd"));
+        String redisKey = REDIS_KEY_PREFIX + dateStr + ":" + memberId + ":" + store.getId();
 
-        // ✅ 오늘 해당 가게에서 이미 사용했는지 체크
         if (redisUtil.hasKey(redisKey)) {
             throw new StoreException(ALREADY_USED_TODAY);
         }
 
-        // ✅ 회원 정보 조회
         MemberResponse memberResponse = memberClient.getMemberById(memberId);
         String memberNickname = memberResponse.getNickname();
 
-        // ✅ 기록 저장
-        freeDrinkHistoryCommandService.createFreeDrinkHistory(memberId, memberNickname, subscribeId, store, createFreeDrinkHistoryRequest.providedDrink());
+        freeDrinkHistoryCommandService.createFreeDrinkHistory(memberId, memberNickname, subscribeId, store, request.providedDrink());
 
-        // ✅ TTL 계산 (정오 기준)
-        LocalDateTime now = LocalDateTime.now(ZoneId.of("Asia/Seoul"));
-        LocalDateTime todayNoon = LocalDate.now().atTime(12, 0);
-        LocalDateTime expirationTime = now.isAfter(todayNoon)
-                ? todayNoon.plusDays(1)
-                : todayNoon;
-        long ttl = Duration.between(now, expirationTime).getSeconds();
+        LocalDateTime expirationTime = standardDate.atTime(12, 0);
+        long ttl = Duration.between(LocalDateTime.now(ZoneId.of("Asia/Seoul")), expirationTime).getSeconds();
 
-        // ✅ Redis에 단일 키로 저장 (value는 그냥 "USED")
         redisUtil.saveAsValue(redisKey, "USED", ttl, TimeUnit.SECONDS);
     }
 
+    private LocalDate getStandardDate() {
+        LocalDateTime now = LocalDateTime.now(ZoneId.of("Asia/Seoul"));
+        LocalDateTime todayNoon = LocalDate.now(ZoneId.of("Asia/Seoul")).atTime(12, 0);
+        return now.isBefore(todayNoon) ? LocalDate.now(ZoneId.of("Asia/Seoul")).minusDays(1) : LocalDate.now(ZoneId.of("Asia/Seoul"));
+    }
 }

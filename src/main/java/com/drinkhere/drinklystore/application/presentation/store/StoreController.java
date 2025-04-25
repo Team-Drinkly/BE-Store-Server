@@ -43,6 +43,4 @@ public class StoreController implements StoreControllerDocs {
     ) {
         return ApplicationResponse.ok(new MemberIdResponse(memberId), "멤버 ID입니다");
     }
-
-
 }
