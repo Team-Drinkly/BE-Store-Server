@@ -12,7 +12,6 @@ import java.util.List;
 public record UpdateStoreRequest(
 
         @Schema(description = "제휴 업체 이름", example = "여기, 꼬치네", required = true)
-        @NotBlank(message = "제휴 업체 이름은 필수입니다.")
         @Size(min = 1, max = 30, message = "업체 이름은 1자 이상 30자 이하로 입력해야 합니다.")
         String storeName,
 
@@ -26,12 +25,10 @@ public record UpdateStoreRequest(
         List<OpeningHours> openingHours,
 
         @Schema(description = "제휴 업체 전화번호", example = "02-1234-5678", required = true)
-        @NotBlank(message = "제휴 업체 전화번호는 필수입니다.")
         @Size(max = 30, message = "전화번호는 30자 이하로 입력해야 합니다.")
         String storeTel,
 
         @Schema(description = "제휴 업체 주소 (도로명 주소 또는 지번 주소)", example = "서울특별시 노원구 동일로192길 62", required = true)
-        @NotBlank(message = "제휴 업체 주소는 필수입니다.")
         @Size(max = 100, message = "주소는 100자 이하로 입력해야 합니다.")
         String storeAddress,
 
