@@ -65,9 +65,9 @@ public class CreateFreeDrinkHistoryUseCase {
 
     public void createFreeDrinkHistoryV2(String isSubscribe, Long memberId, Long subscribeId, CreateFreeDrinkHistoryRequest request) {
         if (isSubscribe.equals("false")) throw new StoreException(NOT_SUBSCIRBER);
-
+        System.out.println(1);
         Store store = storeQueryService.findById(request.storeId());
-
+        System.out.println(2);
         LocalDate standardDate = getStandardDate();
         String dateStr = standardDate.format(DateTimeFormatter.ofPattern("yyyyMMdd"));
         String redisKey = REDIS_KEY_PREFIX + dateStr + ":" + memberId + ":" + store.getId();
@@ -77,10 +77,12 @@ public class CreateFreeDrinkHistoryUseCase {
         }
 
         MemberResponse memberResponse = memberClient.getMemberById(memberId);
+        System.out.println(3);
+        System.out.println(memberResponse.toString());
         String memberNickname = memberResponse.getNickname();
 
         freeDrinkHistoryCommandService.createFreeDrinkHistory(memberId, memberNickname, subscribeId, store, request.providedDrink());
-
+        System.out.println(4);
         LocalDateTime expirationTime = standardDate.atTime(12, 0);
         long ttl = Duration.between(LocalDateTime.now(ZoneId.of("Asia/Seoul")), expirationTime).getSeconds();
 
