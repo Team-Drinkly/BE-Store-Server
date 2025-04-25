@@ -32,7 +32,8 @@ public record GetStoreResponse(
         String latitude,
         String longitude,
         List<ImageInfoResponse> availableDrinkImageUrls,
-        List<ImageInfoResponse> menuImageUrls
+        List<ImageInfoResponse> menuImageUrls,
+        boolean isReady
 ) {
     public static GetStoreResponse toDto(Store store, PresignedUrlService presignedUrlService) {
         String presignedUrl = presignedUrlService.getPresignedUrlForGet(store.getStoreMainImageUrl());
@@ -119,12 +120,14 @@ public record GetStoreResponse(
         };
 
         boolean isAvailable = false;
-        StringTokenizer st = new StringTokenizer(store.getAvailableDays(), " ");
-        while (st.hasMoreTokens()) {
-            String token = st.nextToken();
-            if (token.equals(koreanDay) && isOpen.equals("영업중")) {
-                isAvailable = true;
-                break;
+        if (store.getIsReady()) {
+            StringTokenizer st = new StringTokenizer(store.getAvailableDays(), " ");
+            while (st.hasMoreTokens()) {
+                String token = st.nextToken();
+                if (token.equals(koreanDay) && isOpen.equals("영업중")) {
+                    isAvailable = true;
+                    break;
+                }
             }
         }
 
@@ -146,7 +149,8 @@ public record GetStoreResponse(
                 store.getLatitude(),
                 store.getLongitude(),
                 availableDrinkImages,
-                menuImages
+                menuImages,
+                store.getIsReady()
         );
     }
 
