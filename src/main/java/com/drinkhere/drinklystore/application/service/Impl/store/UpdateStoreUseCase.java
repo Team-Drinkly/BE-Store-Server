@@ -2,6 +2,7 @@ package com.drinkhere.drinklystore.application.service.Impl.store;
 
 import com.drinkhere.drinklystore.common.annotation.ApplicationService;
 import com.drinkhere.drinklystore.domain.dto.request.UpdateStoreRequest;
+import com.drinkhere.drinklystore.domain.dto.response.GetStoreResponse;
 import com.drinkhere.drinklystore.domain.dto.response.ImageInfoResponse;
 import com.drinkhere.drinklystore.domain.dto.response.StoreResponse;
 import com.drinkhere.drinklystore.domain.entity.Store;
@@ -20,22 +21,24 @@ public class UpdateStoreUseCase {
     private final StoreCommandService storeCommandService;
     private final PresignedUrlService presignedUrlService;
 
-    public StoreResponse updateStore(Long storeId, UpdateStoreRequest updateStoreRequest) {
-        Store updatedStore = storeCommandService.updateStore(storeQueryService.findByIdWithImages(storeId), updateStoreRequest);
+    public GetStoreResponse updateStore(Long storeId, UpdateStoreRequest updateStoreRequest) {
+        Store byIdWithImages = storeQueryService.findByIdWithImages(storeId);
+        Store updatedStore = storeCommandService.updateStore(byIdWithImages, updateStoreRequest);
 
         // 5. 이미지 타입별로 분리
-        List<ImageInfoResponse> availableDrinkImageUrls = updatedStore.getStoreImages().stream()
-                .filter(image -> image.getStoreImageType() == StoreImageType.AVAILABLE_DRINK)
-                .map(image -> new ImageInfoResponse(image.getId(), image.getStoreImageUrl(), image.getStoreImageDescription()))
-                .toList();
+//        List<ImageInfoResponse> availableDrinkImageUrls = updatedStore.getStoreImages().stream()
+//                .filter(image -> image.getStoreImageType() == StoreImageType.AVAILABLE_DRINK)
+//                .map(image -> new ImageInfoResponse(image.getId(), image.getStoreImageUrl(), image.getStoreImageDescription()))
+//                .toList();
+//
+//        List<ImageInfoResponse> menuImageUrls = updatedStore.getStoreImages().stream()
+//                .filter(image -> image.getStoreImageType() == StoreImageType.MENU)
+//                .map(image -> new ImageInfoResponse(image.getId(), image.getStoreImageUrl(), image.getStoreImageDescription()))
+//                .toList();
+//
+//        String presignedUrl = presignedUrlService.getPresignedUrlForGet(updatedStore.getStoreMainImageUrl());
 
-        List<ImageInfoResponse> menuImageUrls = updatedStore.getStoreImages().stream()
-                .filter(image -> image.getStoreImageType() == StoreImageType.MENU)
-                .map(image -> new ImageInfoResponse(image.getId(), image.getStoreImageUrl(), image.getStoreImageDescription()))
-                .toList();
-
-        String presignedUrl = presignedUrlService.getPresignedUrlForGet(updatedStore.getStoreMainImageUrl());
-
-        return StoreResponse.toDto(updatedStore, presignedUrl, availableDrinkImageUrls, menuImageUrls);
+//        return StoreResponse.toDto(updatedStore, presignedUrl, availableDrinkImageUrls, menuImageUrls);
+        return GetStoreResponse.toDto(updatedStore, presignedUrlService);
     }
 }

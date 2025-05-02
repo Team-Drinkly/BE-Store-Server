@@ -40,7 +40,7 @@ public class StoreAdminController implements StoreAdminControllerDocs {
     }
 
     @PatchMapping("/{storeId}")
-    public ApplicationResponse<StoreResponse> updateStore(
+    public ApplicationResponse<GetStoreResponse> updateStore(
             @PathVariable Long storeId,
             @RequestHeader(value = "owner-id", required = false) Long ownerId,
             @RequestBody UpdateStoreRequest updateStoreRequest
