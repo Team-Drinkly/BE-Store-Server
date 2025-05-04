@@ -17,4 +17,8 @@ public class GetStoreUseCase {
         Store store = storeQueryService.findByIdWithImages(storeId);
         return GetStoreResponse.toDto(store, presignedUrlService);
     }
+
+    public String getStoreName(Long storeId) {
+        return storeQueryService.findStoreNameById(storeId);
+    }
 }

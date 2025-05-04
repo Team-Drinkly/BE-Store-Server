@@ -36,6 +36,11 @@ public class StoreController implements StoreControllerDocs {
         return ApplicationResponse.ok(getStoreUseCase.getStore(storeId), "제휴 업체 상세 정보입니다.");
     }
 
+    @GetMapping("/list/{storeId}/name")
+    public ApplicationResponse<String> getStoreName(@PathVariable Long storeId) {
+        return ApplicationResponse.ok(getStoreUseCase.getStoreName(storeId), "제휴 업체명입니다.");
+    }
+
 
     @GetMapping("/temp")
     public ApplicationResponse<MemberIdResponse> getMemberId(
