@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 public interface FreeDrinkHistoryRepository extends JpaRepository<FreeDrinkHistory, Long> {
@@ -16,5 +17,6 @@ public interface FreeDrinkHistoryRepository extends JpaRepository<FreeDrinkHisto
     @Query("SELECT f FROM FreeDrinkHistory f JOIN FETCH f.store WHERE f.memberId = :memberId AND f.subscribeId = :subscribeId ORDER BY f.createdDate DESC")
     List<FreeDrinkHistory> findAllByMemberIdAndSubscribeIdOrderByCreatedDateDesc(@Param("memberId") Long memberId, @Param("subscribeId") Long subscribeId);
 
-
+    @Query("SELECT f FROM FreeDrinkHistory f JOIN FETCH f.store WHERE f.memberId = :memberId AND f.createdDate > :afterDate ORDER BY f.createdDate DESC")
+    List<FreeDrinkHistory> findHistoriesWithStore(@Param("memberId") Long memberId, @Param("afterDate") LocalDateTime afterDate);
 }

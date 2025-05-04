@@ -6,6 +6,7 @@ import com.drinkhere.drinklystore.application.service.Impl.freedrinkhistory.GetM
 import com.drinkhere.drinklystore.application.service.Impl.freedrinkhistory.ValidateMemberFreeDrinkUseCase;
 import com.drinkhere.drinklystore.common.response.ApplicationResponse;
 import com.drinkhere.drinklystore.domain.dto.request.CreateFreeDrinkHistoryRequest;
+import com.drinkhere.drinklystore.domain.dto.response.GetFreeDrinkHistoriesResponse;
 import com.drinkhere.drinklystore.domain.dto.response.GetMemberFreeDrinkHistoryResponse;
 import com.drinkhere.drinklystore.domain.entity.FreeDrinkHistory;
 import jakarta.validation.Valid;
@@ -50,5 +51,13 @@ public class FreeDrinkController implements FreeDrinkControllerDocs {
             @PathVariable Long subscribeId
     ) {
         return ApplicationResponse.ok(getMemberFreeDrinkHistoriesUseCase.getMemberFreeDrinkHistory(memberId, subscribeId), "특정 멤버에 대한 멤버쉽 사용 정보 조회입니다.");
+    }
+
+    @GetMapping
+    public ApplicationResponse<GetFreeDrinkHistoriesResponse> getFreeDrinkHistory(
+            @RequestHeader("member-id") Long memberId,
+            @RequestHeader(value = "subscribe-id", required = false) Long subscribeId
+    ) {
+        return ApplicationResponse.ok(getMemberFreeDrinkHistoriesUseCase.getFreeDrinkHistories(memberId, subscribeId), "멤버쉽 사용 이력을 성공적으로 조회했습니다.");
     }
 }

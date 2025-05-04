@@ -8,7 +8,7 @@ spring:
     import: optional:configserver:http://localhost:8888
 
   datasource:
-    url: jdbc:mysql://localhost:3306/drinkly?allowPublicKeyRetrieval=true&serverTimezone=UTC&characterEncoding=utf8&useSSL=false
+    url: jdbc:mysql://localhost:3306/drinkly?allowPublicKeyRetrieval=true&serverTimezone=Asia/Seoul&characterEncoding=utf8&useSSL=false
     username: root
     password:
     driver-class-name: com.mysql.cj.jdbc.Driver
