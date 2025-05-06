@@ -1,4 +1,4 @@
-package com.drinkhere.drinklystore.application.service.Impl;
+package com.drinkhere.drinklystore.application.service.Impl.store;
 
 import com.drinkhere.drinklystore.clientgeocoding.dto.Coordinates;
 import com.drinkhere.drinklystore.clientgeocoding.service.GeocodingUseCase;
@@ -16,7 +16,7 @@ public class RegisterStoreUseCase {
 
     public StoreResponse registerStore(RegisterStoreRequest request) {
         Coordinates coordinates = geocodingUseCase.getCoordinates(request.storeAddress());
-        return StoreResponse.toDto(storeCommandService.save(request.toEntity(coordinates)));
+        return StoreResponse.toDto(storeCommandService.save(request.toEntity(coordinates)), null, null, null);
     }
 
 }

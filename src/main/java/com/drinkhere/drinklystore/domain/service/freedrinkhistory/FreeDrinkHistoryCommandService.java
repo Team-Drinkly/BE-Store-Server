@@ -13,9 +13,10 @@ import org.springframework.transaction.annotation.Transactional;
 public class FreeDrinkHistoryCommandService {
     private final FreeDrinkHistoryRepository freeDrinkHistoryRepository;
 
-    public void createFreeDrinkHistory(Long memberId, Long subscribeId, Store store, String providedDrink) {
+    public void createFreeDrinkHistory(Long memberId, String nickname, Long subscribeId, Store store, String providedDrink) {
         FreeDrinkHistory freeDrinkHistory = FreeDrinkHistory.builder()
                 .memberId(memberId)
+                .memberNickname(nickname)
                 .subscribeId(subscribeId)
                 .store(store)
                 .providedDrink(providedDrink)

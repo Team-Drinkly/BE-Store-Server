@@ -5,4 +5,4 @@ spring:
   application:
     name: store-service
   config:
-    import: optional:configserver:https://drinkhere.com:8888
+    import: optional:configserver:http://config-server:8888

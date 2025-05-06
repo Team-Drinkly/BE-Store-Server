@@ -1,6 +1,7 @@
 package com.drinkhere.drinklystore.domain.enums;
 
 public enum StoreImageType {
+
     AVAILABLE_DRINK("AVAILABLE_DRINK"),
     MENU("MENU");
 

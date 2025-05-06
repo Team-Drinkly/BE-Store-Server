@@ -1,11 +1,12 @@
 package com.drinkhere.drinklystore.application.presentation.store;
 
-import com.drinkhere.drinklystore.application.presentation.docs.StoreControllerDocs;
-import com.drinkhere.drinklystore.application.service.Impl.GetStoreUseCase;
-import com.drinkhere.drinklystore.application.service.Impl.GetStoresByLocationUseCase;
+import com.drinkhere.drinklystore.application.presentation.store.docs.StoreControllerDocs;
+import com.drinkhere.drinklystore.application.service.Impl.store.GetStoreUseCase;
+import com.drinkhere.drinklystore.application.service.Impl.store.GetStoresByLocationUseCase;
 import com.drinkhere.drinklystore.common.response.ApplicationResponse;
 import com.drinkhere.drinklystore.domain.dto.response.GetStoresByLocationResponse;
 import com.drinkhere.drinklystore.domain.dto.response.GetStoreResponse;
+import com.drinkhere.drinklystore.domain.dto.response.MemberIdResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,10 +20,10 @@ public class StoreController implements StoreControllerDocs {
     private final GetStoreUseCase getStoreUseCase;
 
 
-    @GetMapping
+    @GetMapping("/list")
     public ApplicationResponse<List<GetStoresByLocationResponse>> getStoresByLocation(
-            @RequestParam double latitude,
-            @RequestParam double longitude,
+            @RequestParam(defaultValue = "37.63022195215973") double latitude,
+            @RequestParam(defaultValue = "127.07671771357782") double longitude,
             @RequestParam(defaultValue = "50") int radius,
             @RequestParam(required = false) String searchKeyword
     ) {
@@ -30,10 +31,21 @@ public class StoreController implements StoreControllerDocs {
         return ApplicationResponse.ok(stores, "제휴 업체 리스트 반환했습니다.");
     }
 
-    @GetMapping("/{storeId}")
+    @GetMapping("/list/{storeId}")
     public ApplicationResponse<GetStoreResponse> getStore(@PathVariable Long storeId) {
         return ApplicationResponse.ok(getStoreUseCase.getStore(storeId), "제휴 업체 상세 정보입니다.");
     }
 
+    @GetMapping("/list/{storeId}/name")
+    public ApplicationResponse<String> getStoreName(@PathVariable Long storeId) {
+        return ApplicationResponse.ok(getStoreUseCase.getStoreName(storeId), "제휴 업체명입니다.");
+    }
 
+
+    @GetMapping("/temp")
+    public ApplicationResponse<MemberIdResponse> getMemberId(
+            @RequestHeader("member-id") Long memberId
+    ) {
+        return ApplicationResponse.ok(new MemberIdResponse(memberId), "멤버 ID입니다");
+    }
 }

@@ -17,4 +17,9 @@ public class TimeUtil {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy년 MM월 dd일");
         return localDate.format(formatter);
     }
+
+    public static String refineToFullKoreanDateTime(LocalDateTime localDateTime) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy년 MM월 dd일 HH시 mm분");
+        return localDateTime.format(formatter);
+    }
 }

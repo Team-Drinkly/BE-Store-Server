@@ -1,4 +1,4 @@
-package com.drinkhere.drinklystore.application.service.Impl;
+package com.drinkhere.drinklystore.application.service.Impl.store;
 
 import com.drinkhere.drinklystore.common.annotation.ApplicationService;
 import com.drinkhere.drinklystore.domain.dto.response.GetStoreResponse;
@@ -16,5 +16,9 @@ public class GetStoreUseCase {
     public GetStoreResponse getStore(Long storeId) {
         Store store = storeQueryService.findByIdWithImages(storeId);
         return GetStoreResponse.toDto(store, presignedUrlService);
+    }
+
+    public String getStoreName(Long storeId) {
+        return storeQueryService.findStoreNameById(storeId);
     }
 }

@@ -6,6 +6,7 @@ import com.drinkhere.drinklystore.domain.repository.FreeDrinkHistoryRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @DomainService
@@ -14,7 +15,20 @@ import java.util.List;
 public class FreeDrinkHistoryQueryService {
     private final FreeDrinkHistoryRepository freeDrinkHistoryRepository;
 
+    public List<FreeDrinkHistory> getRecentFreeDrinkHistories(Long storeId) {
+        return freeDrinkHistoryRepository.findTop3ByStoreIdOrderByCreatedDateDesc(storeId);
+    }
+
     public List<FreeDrinkHistory> getFreeDrinkHistories(Long storeId) {
-        return freeDrinkHistoryRepository.findAllByStoreId(storeId);
+        return freeDrinkHistoryRepository.findAllByStoreIdOrderByCreatedDateDesc(storeId);
+    }
+
+    public List<FreeDrinkHistory> getMemberFreeDrinkHistories(Long memberId, Long subscribeId) {
+        return freeDrinkHistoryRepository.findAllByMemberIdAndSubscribeIdOrderByCreatedDateDesc(memberId, subscribeId);
+    }
+
+    public List<FreeDrinkHistory> getFreeDrinkHistoriesAtMemberApp(Long memberId) {
+        LocalDateTime threeMonthsAgo = LocalDateTime.now().minusMonths(3);
+        return freeDrinkHistoryRepository.findHistoriesWithStore(memberId, threeMonthsAgo);
     }
 }

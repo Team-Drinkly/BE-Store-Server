@@ -8,7 +8,7 @@ spring:
     import: optional:configserver:http://localhost:8888
 
   datasource:
-    url: jdbc:mysql://localhost:3306/drinkly?allowPublicKeyRetrieval=true&serverTimezone=UTC&characterEncoding=utf8&useSSL=false
+    url: jdbc:mysql://localhost:3306/drinkly?allowPublicKeyRetrieval=true&serverTimezone=Asia/Seoul&characterEncoding=utf8&useSSL=false
     username: root
     password:
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -18,13 +18,13 @@ spring:
       hibernate.dialect: org.hibernate.dialect.MySQLDialect
     hibernate:
       ddl-auto: update
+      format_sql: true  # SQL 예쁘게 출력
+      use_sql_comments: true  # SQL에 주석 표시
 
-#  kafka:
-#    bootstrap-servers: localhost:29092  # Kafka 서버 주소
-#    consumer:
-#      group-id: create-store  # Consumer 그룹 ID
-#      auto-offset-reset: earliest  # Kafka 메시지 읽기 시작 지점 설정
-#      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-#      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
-#      properties:
-#        spring.json.trusted.packages: "*"  # 모든 패키지의 JSON 메시지를 신뢰
+logging:
+  level:
+    org.hibernate.SQL: DEBUG
+    org.hibernate.type.descriptor.sql: TRACE  # 바인딩된 파라미터 값까지 보고 싶을 때
+
+member-service:
+  url: http://localhost:8000/api/v1/member

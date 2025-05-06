@@ -19,8 +19,18 @@ public interface StoreRepository extends JpaRepository<Store, Long> {
                 .orElseThrow(() -> new StoreException(STORE_NOT_FOUND));
     }
 
+    @Query("SELECT s.storeName FROM Store s WHERE s.id = :storeId")
+    String findStoreNameById(@Param("storeId") Long storeId);
+    List<Store> findByOwnerId(Long ownerId);
+
     @Query(value = """
-            SELECT * FROM store s 
+            SELECT s.*, 
+                   6371 * acos(
+                       cos(radians(:latitude)) * cos(radians(CAST(s.latitude AS DOUBLE))) 
+                       * cos(radians(CAST(s.longitude AS DOUBLE)) - radians(:longitude)) 
+                       + sin(radians(:latitude)) * sin(radians(CAST(s.latitude AS DOUBLE)))
+                   ) AS distance
+            FROM store s
             WHERE (
                 6371 * acos(
                     cos(radians(:latitude)) * cos(radians(CAST(s.latitude AS DOUBLE))) 
@@ -28,13 +38,14 @@ public interface StoreRepository extends JpaRepository<Store, Long> {
                     + sin(radians(:latitude)) * sin(radians(CAST(s.latitude AS DOUBLE)))
                 )
             ) < :radius
+            AND s.is_ready = true
             AND (:searchKeyword IS NULL OR s.store_name LIKE %:searchKeyword%)
+            ORDER BY distance ASC
     """, nativeQuery = true)
     List<Store> findStoresByLocation(@Param("latitude") double latitude,
                                      @Param("longitude") double longitude,
                                      @Param("radius") double radius,
-                                     @Param("searchKeyword") String searchKeyword
-    );
+                                     @Param("searchKeyword") String searchKeyword);
 
 
 

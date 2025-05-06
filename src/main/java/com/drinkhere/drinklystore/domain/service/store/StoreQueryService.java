@@ -4,6 +4,8 @@ import com.drinkhere.drinklystore.common.annotation.DomainService;
 import com.drinkhere.drinklystore.domain.entity.Store;
 import com.drinkhere.drinklystore.domain.repository.StoreRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -18,6 +20,11 @@ public class StoreQueryService {
         return storeRepository.findByIdOrThrow(id);
     }
 
+    public String findStoreNameById(Long storeId) {return storeRepository.findStoreNameById(storeId);}
+
+    public List<Store> findByOwnerId(Long ownerId) {
+        return storeRepository.findByOwnerId(ownerId);
+    }
 
     public List<Store> getStoresByLocation(Double latitude, Double longitude, int radius, String searchKeyWord) {
         return storeRepository.findStoresByLocation(latitude, longitude, radius, searchKeyWord);
