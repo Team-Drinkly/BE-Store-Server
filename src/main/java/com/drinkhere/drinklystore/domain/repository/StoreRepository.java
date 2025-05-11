@@ -39,6 +39,7 @@ public interface StoreRepository extends JpaRepository<Store, Long> {
                 )
             ) < :radius
             AND s.is_ready = true
+            AND s.is_test_data = false
             AND (:searchKeyword IS NULL OR s.store_name LIKE %:searchKeyword%)
             ORDER BY distance ASC
     """, nativeQuery = true)

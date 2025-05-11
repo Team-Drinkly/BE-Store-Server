@@ -3,7 +3,7 @@ name: CI/CD with Git Actions & Docker Hub test
 on:
   push:
     branches:
-      - develop
+      - feat/#19
 
 jobs:
   build:
