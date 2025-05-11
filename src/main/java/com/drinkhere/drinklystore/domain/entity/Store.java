@@ -63,8 +63,11 @@ public class Store extends BaseTimeEntity {
     @Column(name = "business_registration_number", nullable = false)
     private String businessRegistrationNumber;
 
-    @Column(name = "is_ready" , nullable = false)
+    @Column(name = "is_ready", nullable = false)
     private Boolean isReady;
+
+    @Column(name = "is_test_data", nullable = false)
+    private Boolean isTestData;
 
     @Builder
     public Store(Long ownerId, String storeName, String storeTel, String storeAddress, String storeDetailAddress, String businessRegistrationNumber, String latitude, String longitude) {
@@ -77,8 +80,11 @@ public class Store extends BaseTimeEntity {
         this.latitude = latitude;
         this.longitude = longitude;
         this.isReady = false;
+        this.isTestData = false;
     }
+
     public void setId(Long id) {this.id = id;}
+
     public void setStoreName(String storeName) {
         this.storeName = storeName;
     }
