@@ -22,6 +22,8 @@ public class StoreQueryService {
 
     public String findStoreNameById(Long storeId) {return storeRepository.findStoreNameById(storeId);}
 
+    public String findStoreNameByIdTestExcepted(Long storeId) {return storeRepository.findStoreNameByIdTestExcepted(storeId);}
+
     public List<Store> findByOwnerId(Long ownerId) {
         return storeRepository.findByOwnerId(ownerId);
     }

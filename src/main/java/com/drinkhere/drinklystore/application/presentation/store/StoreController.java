@@ -4,8 +4,8 @@ import com.drinkhere.drinklystore.application.presentation.store.docs.StoreContr
 import com.drinkhere.drinklystore.application.service.Impl.store.GetStoreUseCase;
 import com.drinkhere.drinklystore.application.service.Impl.store.GetStoresByLocationUseCase;
 import com.drinkhere.drinklystore.common.response.ApplicationResponse;
-import com.drinkhere.drinklystore.domain.dto.response.GetStoresByLocationResponse;
 import com.drinkhere.drinklystore.domain.dto.response.GetStoreResponse;
+import com.drinkhere.drinklystore.domain.dto.response.GetStoresByLocationResponse;
 import com.drinkhere.drinklystore.domain.dto.response.MemberIdResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -41,6 +41,10 @@ public class StoreController implements StoreControllerDocs {
         return ApplicationResponse.ok(getStoreUseCase.getStoreName(storeId), "제휴 업체명입니다.");
     }
 
+    @GetMapping("/list/{storeId}/name/excepted")
+    public ApplicationResponse<String> getStoreNameByTested(@PathVariable Long storeId) {
+        return ApplicationResponse.ok(getStoreUseCase.getStoreNameTestExcepted(storeId), "테스트 제외된 제휴 업체명입니다.");
+    }
 
     @GetMapping("/temp")
     public ApplicationResponse<MemberIdResponse> getMemberId(

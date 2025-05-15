@@ -21,4 +21,8 @@ public class GetStoreUseCase {
     public String getStoreName(Long storeId) {
         return storeQueryService.findStoreNameById(storeId);
     }
+
+    public String getStoreNameTestExcepted(Long storeId) {
+        return storeQueryService.findStoreNameByIdTestExcepted(storeId);
+    }
 }
