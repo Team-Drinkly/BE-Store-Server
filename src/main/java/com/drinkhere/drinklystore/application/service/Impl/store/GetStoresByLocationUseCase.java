@@ -24,7 +24,7 @@ public class GetStoresByLocationUseCase {
 
         Map<Boolean, List<GetStoresByLocationResponse>> partitioned =
                 storesByLocation.stream()
-                        .map(store -> GetStoresByLocationResponse.toDto(store, presignedUrlService))
+                        .map(store -> GetStoresByLocationResponse.toDto(store, presignedUrlService, latitude, longitude))
                         .collect(Collectors.partitioningBy(GetStoresByLocationResponse::isAvailable));
 
         List<GetStoresByLocationResponse> result = new ArrayList<>();

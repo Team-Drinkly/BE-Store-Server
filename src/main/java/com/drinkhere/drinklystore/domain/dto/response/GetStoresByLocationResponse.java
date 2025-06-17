@@ -5,6 +5,7 @@ import com.drinkhere.drinklystore.infras3.service.PresignedUrlService;
 import com.drinkhere.drinklystore.domain.entity.Store;
 import com.drinkhere.drinklystore.domain.entity.StoreImage;
 import com.drinkhere.drinklystore.domain.enums.StoreImageType;
+import com.drinkhere.drinklystore.util.DistanceUtil;
 import com.drinkhere.drinklystore.util.JsonUtil;
 
 import java.time.DayOfWeek;
@@ -26,9 +27,11 @@ public record GetStoresByLocationResponse(
         String openingInfo,
         String storeTel,
         String storeAddress,
-        List<String> availableDrinks
+        List<String> availableDrinks,
+        double distance
 ) {
-    public static GetStoresByLocationResponse toDto(Store store, PresignedUrlService presignedUrlService) {
+    public static GetStoresByLocationResponse toDto(Store store, PresignedUrlService presignedUrlService, double lat, double lon) {
+
         String presignedUrl = presignedUrlService.getPresignedUrlForGet(store.getStoreMainImageUrl());
 
         List<String> availableDrinks = store.getStoreImages().stream()
@@ -129,7 +132,8 @@ public record GetStoresByLocationResponse(
                 openingInfo,
                 store.getStoreTel(),
                 store.getStoreAddress(),
-                availableDrinks
+                availableDrinks,
+                DistanceUtil.calculateDistance(lat, lon, Double.parseDouble(store.getLatitude()), Double.parseDouble(store.getLongitude()))
         );
     }
 

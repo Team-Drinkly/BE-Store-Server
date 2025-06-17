@@ -53,7 +53,6 @@ public interface StoreRepository extends JpaRepository<Store, Long> {
                                      @Param("searchKeyword") String searchKeyword);
 
 
-
     @Query("SELECT s FROM Store s LEFT JOIN FETCH s.storeImages WHERE s.id = :storeId")
     Optional<Store> findByIdWithImages(@Param("storeId") Long storeId);
 
