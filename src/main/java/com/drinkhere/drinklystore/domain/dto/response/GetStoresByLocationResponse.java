@@ -5,6 +5,7 @@ import com.drinkhere.drinklystore.infras3.service.PresignedUrlService;
 import com.drinkhere.drinklystore.domain.entity.Store;
 import com.drinkhere.drinklystore.domain.entity.StoreImage;
 import com.drinkhere.drinklystore.domain.enums.StoreImageType;
+import com.drinkhere.drinklystore.util.DistanceUtil;
 import com.drinkhere.drinklystore.util.JsonUtil;
 
 import java.time.DayOfWeek;
@@ -26,10 +27,11 @@ public record GetStoresByLocationResponse(
         String openingInfo,
         String storeTel,
         String storeAddress,
-        List<String> availableDrinks
+        List<String> availableDrinks,
+        Double distance
 ) {
-    public static GetStoresByLocationResponse toDto(Store store, PresignedUrlService presignedUrlService) {
-        String presignedUrl = presignedUrlService.getPresignedUrlForGet(store.getStoreMainImageUrl());
+    public static GetStoresByLocationResponse toDto(Store store, PresignedUrlService presignedUrlService, double userLat, double userLng) {
+    String presignedUrl = presignedUrlService.getPresignedUrlForGet(store.getStoreMainImageUrl());
 
         List<String> availableDrinks = store.getStoreImages().stream()
                 .filter(image -> image.getStoreImageType() == StoreImageType.AVAILABLE_DRINK)
@@ -118,6 +120,13 @@ public record GetStoresByLocationResponse(
             }
         }
 
+        double distance = DistanceUtil.calculateDistance(
+                userLat,
+                userLng,
+                Double.parseDouble(store.getLatitude()),
+                Double.parseDouble(store.getLongitude())
+        );
+
         return new GetStoresByLocationResponse(
                 store.getId(),
                 store.getStoreName(),
@@ -129,7 +138,8 @@ public record GetStoresByLocationResponse(
                 openingInfo,
                 store.getStoreTel(),
                 store.getStoreAddress(),
-                availableDrinks
+                availableDrinks,
+                distance
         );
     }
 
