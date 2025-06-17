@@ -28,11 +28,10 @@ public record GetStoresByLocationResponse(
         String storeTel,
         String storeAddress,
         List<String> availableDrinks,
-        double distance
+        Double distance
 ) {
-    public static GetStoresByLocationResponse toDto(Store store, PresignedUrlService presignedUrlService, double lat, double lon) {
-
-        String presignedUrl = presignedUrlService.getPresignedUrlForGet(store.getStoreMainImageUrl());
+    public static GetStoresByLocationResponse toDto(Store store, PresignedUrlService presignedUrlService, double userLat, double userLng) {
+    String presignedUrl = presignedUrlService.getPresignedUrlForGet(store.getStoreMainImageUrl());
 
         List<String> availableDrinks = store.getStoreImages().stream()
                 .filter(image -> image.getStoreImageType() == StoreImageType.AVAILABLE_DRINK)
@@ -121,6 +120,13 @@ public record GetStoresByLocationResponse(
             }
         }
 
+        double distance = DistanceUtil.calculateDistance(
+                userLat,
+                userLng,
+                Double.parseDouble(store.getLatitude()),
+                Double.parseDouble(store.getLongitude())
+        );
+
         return new GetStoresByLocationResponse(
                 store.getId(),
                 store.getStoreName(),
@@ -133,7 +139,7 @@ public record GetStoresByLocationResponse(
                 store.getStoreTel(),
                 store.getStoreAddress(),
                 availableDrinks,
-                DistanceUtil.calculateDistance(lat, lon, Double.parseDouble(store.getLatitude()), Double.parseDouble(store.getLongitude()))
+                distance
         );
     }
 
