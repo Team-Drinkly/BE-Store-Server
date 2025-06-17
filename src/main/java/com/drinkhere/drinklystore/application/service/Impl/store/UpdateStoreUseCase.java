@@ -11,6 +11,7 @@ import com.drinkhere.drinklystore.domain.service.store.StoreCommandService;
 import com.drinkhere.drinklystore.domain.service.store.StoreQueryService;
 import com.drinkhere.drinklystore.infras3.service.PresignedUrlService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -21,6 +22,7 @@ public class UpdateStoreUseCase {
     private final StoreCommandService storeCommandService;
     private final PresignedUrlService presignedUrlService;
 
+    @Transactional
     public GetStoreResponse updateStore(Long storeId, UpdateStoreRequest updateStoreRequest) {
         Store byIdWithImages = storeQueryService.findByIdWithImages(storeId);
         Store updatedStore = storeCommandService.updateStore(byIdWithImages, updateStoreRequest);
@@ -39,6 +41,8 @@ public class UpdateStoreUseCase {
 //        String presignedUrl = presignedUrlService.getPresignedUrlForGet(updatedStore.getStoreMainImageUrl());
 
 //        return StoreResponse.toDto(updatedStore, presignedUrl, availableDrinkImageUrls, menuImageUrls);
-        return GetStoreResponse.toDto(updatedStore, presignedUrlService);
+        GetStoreResponse getStoreResponse = GetStoreResponse.toDto(updatedStore, presignedUrlService);
+        updatedStore.setIsReady(getStoreResponse.isReady());
+        return getStoreResponse;
     }
 }

@@ -131,6 +131,13 @@ public record GetStoreResponse(
             }
         }
 
+        boolean isReady = !availableDrinkImages.isEmpty()
+                            && openingHours != null
+                            && store.getAvailableDays() != null
+                            && !store.getAvailableDays().isBlank();
+
+        store.setIsReady(isReady);
+
         return new GetStoreResponse(
                 store.getId(),
                 store.getOwnerId(),
@@ -150,7 +157,7 @@ public record GetStoreResponse(
                 store.getLongitude(),
                 availableDrinkImages,
                 menuImages,
-                store.getIsReady()
+                isReady
         );
     }
 
