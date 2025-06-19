@@ -31,7 +31,10 @@ public record GetStoresByLocationResponse(
         Double distance
 ) {
     public static GetStoresByLocationResponse toDto(Store store, PresignedUrlService presignedUrlService, double userLat, double userLng) {
-    String presignedUrl = presignedUrlService.getPresignedUrlForGet(store.getStoreMainImageUrl());
+        String presignedUrl = null;
+        if (store.getStoreMainImageUrl() != null) {
+            presignedUrl = presignedUrlService.getPresignedUrlForGet(store.getStoreMainImageUrl());
+        }
 
         List<String> availableDrinks = store.getStoreImages().stream()
                 .filter(image -> image.getStoreImageType() == StoreImageType.AVAILABLE_DRINK)

@@ -66,7 +66,7 @@ public class Store extends BaseTimeEntity {
     @Column(name = "is_ready", nullable = false)
     private Boolean isReady;
 
-    @Column(name = "is_test_data", nullable = false)
+    @Column(name = "is_test_data", nullable = true)
     private Boolean isTestData;
 
     @Builder
