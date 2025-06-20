@@ -36,7 +36,10 @@ public record GetStoreResponse(
         boolean isReady
 ) {
     public static GetStoreResponse toDto(Store store, PresignedUrlService presignedUrlService) {
-        String presignedUrl = presignedUrlService.getPresignedUrlForGet(store.getStoreMainImageUrl());
+        String presignedUrl = null;
+        if (store.getStoreMainImageUrl() != null) {
+            presignedUrl = presignedUrlService.getPresignedUrlForGet(store.getStoreMainImageUrl());
+        }
         
         List<ImageInfoResponse> availableDrinkImages = store.getStoreImages().stream()
                 .filter(image -> image.getStoreImageType() == StoreImageType.AVAILABLE_DRINK)
