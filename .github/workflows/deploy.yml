@@ -3,7 +3,7 @@ name: CI/CD with Git Actions & Docker Hub test
 on:
   push:
     branches:
-      - refactor/#21
+      - main
 
 jobs:
   build:
