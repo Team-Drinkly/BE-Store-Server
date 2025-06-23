@@ -13,6 +13,7 @@ import java.util.List;
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
 public class FreeDrinkHistoryQueryService {
+
     private final FreeDrinkHistoryRepository freeDrinkHistoryRepository;
 
     public List<FreeDrinkHistory> getRecentFreeDrinkHistories(Long storeId) {
