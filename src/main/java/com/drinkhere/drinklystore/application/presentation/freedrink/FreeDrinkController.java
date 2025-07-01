@@ -29,7 +29,8 @@ public class FreeDrinkController implements FreeDrinkControllerDocs {
     ) {
 
         GetFreeDrinkHistoriesResponse freeDrinkHistories = getMemberFreeDrinkHistoriesUseCase.getFreeDrinkHistories(memberId, subscribeId);
-        if (freeDrinkHistories != null) {
+
+        if (freeDrinkHistories.usedCount() > 0) {
             return ApplicationResponse.ok(true);
         }
         return ApplicationResponse.ok(false);
