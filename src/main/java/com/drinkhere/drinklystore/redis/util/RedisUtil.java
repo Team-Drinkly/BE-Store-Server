@@ -17,6 +17,14 @@ public class RedisUtil {
         redisTemplate.opsForValue().set(key, val, time, timeUnit);
     }
 
+    public void incrementHashValue(String hashKey, String field) {
+        redisTemplate.opsForHash().increment(hashKey, field, 1);
+    }
+
+    public Object getHashValue(String hashKey, String field) {
+        return redisTemplate.opsForHash().get(hashKey, field);
+    }
+
     public void saveWithoutExpiration(String key, Object value) {
         redisTemplate.opsForValue().set(key, value);
     }
