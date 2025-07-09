@@ -36,7 +36,10 @@ public record GetStoreResponse(
         boolean isReady
 ) {
     public static GetStoreResponse toDto(Store store, PresignedUrlService presignedUrlService) {
-        String presignedUrl = presignedUrlService.getPresignedUrlForGet(store.getStoreMainImageUrl());
+        String presignedUrl = null;
+        if (store.getStoreMainImageUrl() != null) {
+            presignedUrl = presignedUrlService.getPresignedUrlForGet(store.getStoreMainImageUrl());
+        }
         
         List<ImageInfoResponse> availableDrinkImages = store.getStoreImages().stream()
                 .filter(image -> image.getStoreImageType() == StoreImageType.AVAILABLE_DRINK)
@@ -131,6 +134,13 @@ public record GetStoreResponse(
             }
         }
 
+        boolean isReady = !availableDrinkImages.isEmpty()
+                            && openingHours != null
+                            && store.getAvailableDays() != null
+                            && !store.getAvailableDays().isBlank();
+
+        store.setIsReady(isReady);
+
         return new GetStoreResponse(
                 store.getId(),
                 store.getOwnerId(),
@@ -150,7 +160,7 @@ public record GetStoreResponse(
                 store.getLongitude(),
                 availableDrinkImages,
                 menuImages,
-                store.getIsReady()
+                isReady
         );
     }
 

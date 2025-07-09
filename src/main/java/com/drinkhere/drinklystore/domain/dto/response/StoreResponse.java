@@ -23,13 +23,19 @@ public record StoreResponse(
         String latitude,
         String longitude,
         List<ImageInfoResponse> availableDrinkImageUrls,
-        List<ImageInfoResponse> menuImageUrls
+        List<ImageInfoResponse> menuImageUrls,
+        boolean isReady
 ) {
 
     public static StoreResponse toDto(Store store, String storeMainImageUrl, List<ImageInfoResponse> availableDrinkImageUrls, List<ImageInfoResponse> menuImageUrls) {
         List<OpeningHours> openingHours;
         if (store.getOpeningHours() == null) openingHours = null;
         else openingHours = JsonUtil.deserialization(store.getOpeningHours());
+
+        boolean isReady = !availableDrinkImageUrls.isEmpty()
+                && openingHours != null
+                && store.getAvailableDays() != null
+                && !store.getAvailableDays().isBlank();
 
         return new StoreResponse(
                 store.getId(),
@@ -48,7 +54,8 @@ public record StoreResponse(
                 store.getLatitude(),
                 store.getLongitude(),
                 availableDrinkImageUrls,
-                menuImageUrls
+                menuImageUrls,
+                isReady
         );
     }
 }

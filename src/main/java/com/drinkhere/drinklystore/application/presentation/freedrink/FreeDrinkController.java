@@ -8,8 +8,6 @@ import com.drinkhere.drinklystore.common.response.ApplicationResponse;
 import com.drinkhere.drinklystore.domain.dto.request.CreateFreeDrinkHistoryRequest;
 import com.drinkhere.drinklystore.domain.dto.response.GetFreeDrinkHistoriesResponse;
 import com.drinkhere.drinklystore.domain.dto.response.GetMemberFreeDrinkHistoryResponse;
-import com.drinkhere.drinklystore.domain.entity.FreeDrinkHistory;
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,6 +21,20 @@ public class FreeDrinkController implements FreeDrinkControllerDocs {
     private final CreateFreeDrinkHistoryUseCase createFreeDrinkHistoryUseCase;
     private final GetMemberFreeDrinkHistoriesUseCase getMemberFreeDrinkHistoriesUseCase;
     private final ValidateMemberFreeDrinkUseCase validateMemberFreeDrinkUseCase;
+
+    @GetMapping("/checkUsedYn")
+    public ApplicationResponse<Boolean> findCheckUsedYn(
+            @RequestHeader(value = "member-id", required = false) Long memberId,
+            @RequestHeader(value = "subscribe-id", required = false) Long subscribeId
+    ) {
+
+        GetFreeDrinkHistoriesResponse freeDrinkHistories = getMemberFreeDrinkHistoriesUseCase.getFreeDrinkHistories(memberId, subscribeId);
+
+        if (freeDrinkHistories.usedCount() > 0) {
+            return ApplicationResponse.ok(true);
+        }
+        return ApplicationResponse.ok(false);
+    }
 
     @PostMapping
     public ApplicationResponse<String> createFreeDrinkHistory(

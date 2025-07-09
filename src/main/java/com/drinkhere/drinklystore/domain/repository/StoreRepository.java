@@ -21,6 +21,10 @@ public interface StoreRepository extends JpaRepository<Store, Long> {
 
     @Query("SELECT s.storeName FROM Store s WHERE s.id = :storeId")
     String findStoreNameById(@Param("storeId") Long storeId);
+
+    @Query("SELECT s.storeName FROM Store s WHERE s.id = :storeId AND s.isTestData = false")
+    String findStoreNameByIdTestExcepted(@Param("storeId") Long storeId);
+
     List<Store> findByOwnerId(Long ownerId);
 
     @Query(value = """
@@ -39,6 +43,7 @@ public interface StoreRepository extends JpaRepository<Store, Long> {
                 )
             ) < :radius
             AND s.is_ready = true
+            AND s.is_test_data = false
             AND (:searchKeyword IS NULL OR s.store_name LIKE %:searchKeyword%)
             ORDER BY distance ASC
     """, nativeQuery = true)
@@ -46,7 +51,6 @@ public interface StoreRepository extends JpaRepository<Store, Long> {
                                      @Param("longitude") double longitude,
                                      @Param("radius") double radius,
                                      @Param("searchKeyword") String searchKeyword);
-
 
 
     @Query("SELECT s FROM Store s LEFT JOIN FETCH s.storeImages WHERE s.id = :storeId")

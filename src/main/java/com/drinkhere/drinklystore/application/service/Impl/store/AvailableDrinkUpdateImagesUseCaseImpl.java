@@ -55,6 +55,8 @@ public class AvailableDrinkUpdateImagesUseCaseImpl implements UpdateImagesUseCas
         String presignedUrl = presignedUrlService.getPresignedUrlForGet(updatedStore.getStoreMainImageUrl());
 
         // 6. StoreResponse DTO 반환
-        return StoreResponse.toDto(updatedStore, presignedUrl, availableDrinkImageUrls, menuImageUrls);
+        StoreResponse storeResponse = StoreResponse.toDto(updatedStore, presignedUrl, availableDrinkImageUrls, menuImageUrls);
+        store.setIsReady(storeResponse.isReady());
+        return storeResponse;
     }
 }
