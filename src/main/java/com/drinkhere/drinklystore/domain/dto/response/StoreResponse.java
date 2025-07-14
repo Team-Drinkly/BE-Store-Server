@@ -32,7 +32,7 @@ public record StoreResponse(
         if (store.getOpeningHours() == null) openingHours = null;
         else openingHours = JsonUtil.deserialization(store.getOpeningHours());
 
-        boolean isReady = !availableDrinkImageUrls.isEmpty()
+        boolean isReady = availableDrinkImageUrls != null && !availableDrinkImageUrls.isEmpty()
                 && openingHours != null
                 && store.getAvailableDays() != null
                 && !store.getAvailableDays().isBlank();
