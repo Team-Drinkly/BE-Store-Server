@@ -38,6 +38,13 @@ public class PresignedUrlService {
         return GetPresignedUrlResponse.of(url.toString(), filePath);
     }
 
+    public GetPresignedUrlResponse getPresignedUrlForPutWithNoIdentifier(GetPresignedUrlRequest getPresignedUrlRequest) {
+        String filePath = createPathNoIdentifier(getPresignedUrlRequest.prefix(), getPresignedUrlRequest.fileName());
+        GeneratePresignedUrlRequest generatePresignedUrlRequest = getGeneratePresignedUrlRequest(bucket, filePath, HttpMethod.PUT);
+        URL url = s3Config.amazonS3().generatePresignedUrl(generatePresignedUrlRequest);
+        return GetPresignedUrlResponse.of(url.toString(), filePath);
+    }
+
     public List<GetPresignedUrlResponse> getPresignedUrlsForPut(GetPresignedUrlListRequest getPresignedUrlRequests) {
         return getPresignedUrlRequests.requests().stream()
                 .map(this::getPresignedUrlForPut) // getPresignedUrlForPut 메서드 참조
@@ -82,5 +89,9 @@ public class PresignedUrlService {
         String fileUniqueId = UUID.randomUUID().toString();
         String timestamp = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
         return String.format("%s/%s-%s-%s", prefix, timestamp, fileUniqueId, fileName);
+    }
+
+    private String createPathNoIdentifier(String prefix, String fileName) {
+        return String.format("%s/%s", prefix, fileName);
     }
 }

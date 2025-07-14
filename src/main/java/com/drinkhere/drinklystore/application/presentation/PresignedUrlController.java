@@ -24,6 +24,11 @@ public class PresignedUrlController {
         return ApplicationResponse.created(presignedUrlService.getPresignedUrlForPut(getPresignedUrlRequest));
     }
 
+    @PostMapping("/no-identifier")
+    public ApplicationResponse<GetPresignedUrlResponse> getPresignedUrlWithNoIdentifier(@RequestBody GetPresignedUrlRequest getPresignedUrlRequest) {
+        return ApplicationResponse.created(presignedUrlService.getPresignedUrlForPutWithNoIdentifier(getPresignedUrlRequest));
+    }
+
     @PostMapping("/batch")
     public ApplicationResponse<List<GetPresignedUrlResponse>> getPresignedUrls(@RequestBody GetPresignedUrlListRequest getPresignedUrlListRequest) {
         return ApplicationResponse.created(presignedUrlService.getPresignedUrlsForPut(getPresignedUrlListRequest));
