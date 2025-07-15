@@ -11,9 +11,10 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      SPRING_PROFILE: ${{ github.ref_name == 'main' && 'prod' || 'dev' }} # 현재 브랜치 이름이 main이면 prod, 아니면 dev로 설정
-      PRIVATE_IP: ${{ github.ref_name == 'main' && secrets.PRIVATE_IP || secrets.DEV_PRIVATE_IP }}
-      REPOSITORY: ${{ github.ref_name == 'main' && secrets.DOCKERHUB_REPOSITORY || secrets.DEV_DOCKERHUB_REPOSITORY }}
+      TARGET_BRANCH: ${{ github.base_ref }}
+      SPRING_PROFILE: ${{ github.base_ref == 'main' && 'prod' || 'dev' }}
+      PRIVATE_IP: ${{ github.base_ref == 'main' && secrets.PRIVATE_IP || secrets.DEV_PRIVATE_IP }}
+      REPOSITORY: ${{ github.base_ref == 'main' && secrets.DOCKERHUB_REPOSITORY || secrets.DEV_DOCKERHUB_REPOSITORY }}
 
     steps:
       - name: Checkout source code
