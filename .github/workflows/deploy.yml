@@ -1,13 +1,20 @@
 name: CI/CD with Git Actions & Docker Hub test
 
 on:
-  push:
+  pull_request:
     branches:
       - main
+      - develop
 
 jobs:
   build:
     runs-on: ubuntu-latest
+
+    env:
+      SPRING_PROFILE: ${{ github.ref_name == 'main' && 'prod' || 'dev' }} # 현재 브랜치 이름이 main이면 prod, 아니면 dev로 설정
+      PRIVATE_IP: ${{ github.ref_name == 'main' && secrets.PRIVATE_IP || secrets.DEV_PRIVATE_IP }}
+      REPOSITORY: ${{ github.ref_name == 'main' && secrets.DOCKERHUB_REPOSITORY || secrets.DEV_DOCKERHUB_REPOSITORY }}
+
     steps:
       - name: Checkout source code
         uses: actions/checkout@v3
@@ -30,10 +37,19 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: Build and push Spring Boot app Docker image
+      - name: Build and push Docker image
         run: |
-          docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKERHUB_REPOSITORY }}:${{ secrets.DOCKERHUB_TAG }} --platform linux/amd64 .
-          docker push ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKERHUB_REPOSITORY }}:${{ secrets.DOCKERHUB_TAG }}
+          docker build \
+            --build-arg SPRING_PROFILE=${{ env.SPRING_PROFILE }} \
+            -t ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.REPOSITORY }}:${{ secrets.DOCKERHUB_TAG }} \
+            --platform linux/amd64 .
+
+          docker push ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.REPOSITORY }}:${{ secrets.DOCKERHUB_TAG }}
+
+#      - name: Build and push Spring Boot app Docker image
+#        run: |
+#          docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKERHUB_REPOSITORY }}:${{ secrets.DOCKERHUB_TAG }} --platform linux/amd64 .
+#          docker push ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKERHUB_REPOSITORY }}:${{ secrets.DOCKERHUB_TAG }}
 
       - name: Deploy at EC2 instance through Bastion Host
         uses: appleboy/ssh-action@master
@@ -46,10 +62,10 @@ jobs:
             echo "✅ Bastion Host 접속 완료"
 
             # Private EC2에 SSH 접속 후 배포 수행
-            ssh -i "${{secrets.DIRECTORY_PEM}}" ubuntu@${{ secrets.PRIVATE_IP }} << 'EOF'
+            ssh -i "${{secrets.DIRECTORY_PEM}}" ubuntu@${{ env.PRIVATE_IP }} << 'EOF'
               echo "✅ Private EC2 접속 완료"
 
-              IMAGE_NAME="${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKERHUB_REPOSITORY }}:${{ secrets.DOCKERHUB_TAG }}"
+              IMAGE_NAME="${{ secrets.DOCKERHUB_USERNAME }}/${{ env.REPOSITORY }}:${{ secrets.DOCKERHUB_TAG }}"
               CONTAINER_NAME="${{ secrets.DOCKERHUB_TAG }}"
 
               echo "🔹 Docker 로그인"
