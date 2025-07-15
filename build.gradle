@@ -64,6 +64,12 @@ dependencies {
 
 	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.4.0'
 
+	// Slack 웹훅
+	implementation 'com.slack.api:slack-api-client:1.43.0'
+
+	// excel
+	implementation 'org.apache.poi:poi-ooxml:5.2.5'
+
 	// AWS S3 - Presigned-URL
 	implementation 'io.awspring.cloud:spring-cloud-starter-aws:2.4.4'
 	implementation 'io.awspring.cloud:spring-cloud-starter-aws-secrets-manager-config:2.4.4'

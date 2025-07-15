@@ -1,7 +1,9 @@
 package com.drinkhere.drinklystore.infras3.service;
 
+import com.amazonaws.AmazonServiceException;
 import com.amazonaws.HttpMethod;
 import com.amazonaws.services.s3.model.GeneratePresignedUrlRequest;
+import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.drinkhere.drinklystore.infras3.config.S3Config;
 import com.drinkhere.drinklystore.infras3.dto.request.GetPresignedUrlListRequest;
 import com.drinkhere.drinklystore.infras3.dto.request.GetPresignedUrlRequest;
@@ -11,6 +13,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.stereotype.Service;
 
+import java.io.InputStream;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -33,6 +36,13 @@ public class PresignedUrlService {
 
     public GetPresignedUrlResponse getPresignedUrlForPut(GetPresignedUrlRequest getPresignedUrlRequest) {
         String filePath = createPath(getPresignedUrlRequest.prefix(), getPresignedUrlRequest.fileName());
+        GeneratePresignedUrlRequest generatePresignedUrlRequest = getGeneratePresignedUrlRequest(bucket, filePath, HttpMethod.PUT);
+        URL url = s3Config.amazonS3().generatePresignedUrl(generatePresignedUrlRequest);
+        return GetPresignedUrlResponse.of(url.toString(), filePath);
+    }
+
+    public GetPresignedUrlResponse getPresignedUrlForPutWithNoIdentifier(GetPresignedUrlRequest getPresignedUrlRequest) {
+        String filePath = createPathNoIdentifier(getPresignedUrlRequest.prefix(), getPresignedUrlRequest.fileName());
         GeneratePresignedUrlRequest generatePresignedUrlRequest = getGeneratePresignedUrlRequest(bucket, filePath, HttpMethod.PUT);
         URL url = s3Config.amazonS3().generatePresignedUrl(generatePresignedUrlRequest);
         return GetPresignedUrlResponse.of(url.toString(), filePath);
@@ -77,10 +87,24 @@ public class PresignedUrlService {
         return expiration;
     }
 
+    public void uploadFileToS3(InputStream inputStream, String filePath, String contentType) {
+        ObjectMetadata metadata = new ObjectMetadata();
+        metadata.setContentType(contentType);
+        try {
+            s3Config.amazonS3().putObject(bucket, filePath, inputStream, metadata);
+        } catch (AmazonServiceException e) {
+            throw new RuntimeException("S3 업로드 실패", e);
+        }
+    }
+
     // 파일 경로 생성 -> {prefix}/{yyyyMMddHHmmss}-{UUID}-{파일명}.png
     private String createPath(String prefix, String fileName) {
         String fileUniqueId = UUID.randomUUID().toString();
         String timestamp = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
         return String.format("%s/%s-%s-%s", prefix, timestamp, fileUniqueId, fileName);
+    }
+
+    private String createPathNoIdentifier(String prefix, String fileName) {
+        return String.format("%s/%s", prefix, fileName);
     }
 }

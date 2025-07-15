@@ -5,6 +5,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
@@ -15,6 +16,18 @@ public class RedisUtil {
 
     public void saveAsValue(String key, Object val, Long time, TimeUnit timeUnit) {
         redisTemplate.opsForValue().set(key, val, time, timeUnit);
+    }
+
+    public void incrementHashValue(String hashKey, String field) {
+        redisTemplate.opsForHash().increment(hashKey, field, 1);
+    }
+
+    public Map<Object, Object> getAllHash(String hashKey) {
+        return redisTemplate.opsForHash().entries(hashKey);
+    }
+
+    public Object getHashValue(String hashKey, String field) {
+        return redisTemplate.opsForHash().get(hashKey, field);
     }
 
     public void saveWithoutExpiration(String key, Object value) {
