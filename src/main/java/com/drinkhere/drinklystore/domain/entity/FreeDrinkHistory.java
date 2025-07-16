@@ -28,15 +28,19 @@ public class FreeDrinkHistory extends BaseTimeEntity {
     @Column(name = "subscribe_id")
     private Long subscribeId;
 
+    @Column(name = "provided_drink_image_id")
+    private Long providedDrinkImageId;
+
     @Column(name = "provided_drink")
     private String providedDrink;
 
     @Builder
-    public FreeDrinkHistory(Store store, Long memberId, String memberNickname, Long subscribeId, String providedDrink) {
+    public FreeDrinkHistory(Store store, Long memberId, String memberNickname, Long subscribeId, Long providedDrinkImageId, String providedDrink) {
         this.store = store;
         this.memberId = memberId;
         this.memberNickname = memberNickname;
         this.subscribeId = subscribeId;
+        this.providedDrinkImageId = providedDrinkImageId;
         this.providedDrink = providedDrink;
     }
 }
