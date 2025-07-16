@@ -1,5 +1,6 @@
 package com.drinkhere.drinklystore.domain.repository;
 
+import com.drinkhere.drinklystore.domain.dto.response.GetFreeDrinkHistoriesResponse;
 import com.drinkhere.drinklystore.domain.entity.FreeDrinkHistory;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -19,4 +20,12 @@ public interface FreeDrinkHistoryRepository extends JpaRepository<FreeDrinkHisto
 
     @Query("SELECT f FROM FreeDrinkHistory f JOIN FETCH f.store WHERE f.memberId = :memberId AND f.createdDate > :afterDate ORDER BY f.createdDate DESC")
     List<FreeDrinkHistory> findHistoriesWithStore(@Param("memberId") Long memberId, @Param("afterDate") LocalDateTime afterDate);
+
+    @Query("SELECT f FROM FreeDrinkHistory f " +
+            "JOIN FETCH f.store " +
+            "JOIN FETCH f.store.storeImages " +
+            "WHERE f.memberId = :memberId AND f.createdDate > :afterDate " +
+            "ORDER BY f.createdDate DESC"
+    )
+    List<FreeDrinkHistory> findHistoriesWithStoreV2(@Param("memberId") Long memberId, @Param("afterDate") LocalDateTime afterDate);
 }

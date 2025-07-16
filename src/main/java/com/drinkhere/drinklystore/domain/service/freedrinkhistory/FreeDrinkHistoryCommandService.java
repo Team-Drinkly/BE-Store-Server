@@ -23,4 +23,16 @@ public class FreeDrinkHistoryCommandService {
                 .build();
         freeDrinkHistoryRepository.save(freeDrinkHistory);
     }
+
+    public void createFreeDrinkHistoryV2(Long memberId, String nickname, Long subscribeId, Store store, Long providedDrinkImageId, String providedDrink) {
+        FreeDrinkHistory freeDrinkHistory = FreeDrinkHistory.builder()
+                .memberId(memberId)
+                .memberNickname(nickname)
+                .subscribeId(subscribeId)
+                .store(store)
+                .providedDrinkImageId(providedDrinkImageId)
+                .providedDrink(providedDrink)
+                .build();
+        freeDrinkHistoryRepository.save(freeDrinkHistory);
+    }
 }

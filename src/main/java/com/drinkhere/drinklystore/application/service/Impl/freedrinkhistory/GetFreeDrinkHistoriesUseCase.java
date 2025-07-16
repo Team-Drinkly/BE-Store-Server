@@ -4,6 +4,7 @@ import com.drinkhere.drinklystore.common.annotation.ApplicationService;
 import com.drinkhere.drinklystore.domain.dto.response.GetFreeDrinkHistoryResponse;
 import com.drinkhere.drinklystore.domain.entity.FreeDrinkHistory;
 import com.drinkhere.drinklystore.domain.service.freedrinkhistory.FreeDrinkHistoryQueryService;
+import com.drinkhere.drinklystore.infras3.service.PresignedUrlService;
 import lombok.RequiredArgsConstructor;
 
 import java.util.List;
@@ -21,5 +22,4 @@ public class GetFreeDrinkHistoriesUseCase {
                 .map(GetFreeDrinkHistoryResponse::toDto)
                 .collect(Collectors.toList());
     }
-
 }

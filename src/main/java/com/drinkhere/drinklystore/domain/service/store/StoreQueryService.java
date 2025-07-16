@@ -2,6 +2,8 @@ package com.drinkhere.drinklystore.domain.service.store;
 
 import com.drinkhere.drinklystore.common.annotation.DomainService;
 import com.drinkhere.drinklystore.domain.entity.Store;
+import com.drinkhere.drinklystore.domain.entity.StoreImage;
+import com.drinkhere.drinklystore.domain.repository.StoreImageRepository;
 import com.drinkhere.drinklystore.domain.repository.StoreRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,6 +15,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class StoreQueryService {
     private final StoreRepository storeRepository;
+    private final StoreImageRepository storeImageRepository;
 
     public Store findById(Long id) {
         return storeRepository.findByIdOrThrow(id);
@@ -33,4 +36,6 @@ public class StoreQueryService {
     public Store findByIdWithImages(Long storeId) {
         return storeRepository.findByIdWithImagesOrThrow(storeId);
     }
+
+    public StoreImage findStoreImageByIdOrThrow(Long imageId) { return storeImageRepository.findStoreImageByIdOrThrow(imageId); }
 }
