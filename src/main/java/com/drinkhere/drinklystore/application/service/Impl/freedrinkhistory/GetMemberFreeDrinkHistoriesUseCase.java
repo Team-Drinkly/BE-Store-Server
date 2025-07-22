@@ -2,9 +2,13 @@ package com.drinkhere.drinklystore.application.service.Impl.freedrinkhistory;
 
 import com.drinkhere.drinklystore.common.annotation.ApplicationService;
 import com.drinkhere.drinklystore.domain.dto.response.GetFreeDrinkHistoriesResponse;
+import com.drinkhere.drinklystore.domain.dto.response.GetFreeDrinkHistoriesResponseV2;
 import com.drinkhere.drinklystore.domain.dto.response.GetMemberFreeDrinkHistoryResponse;
 import com.drinkhere.drinklystore.domain.entity.FreeDrinkHistory;
+import com.drinkhere.drinklystore.domain.entity.StoreImage;
 import com.drinkhere.drinklystore.domain.service.freedrinkhistory.FreeDrinkHistoryQueryService;
+import com.drinkhere.drinklystore.domain.service.store.StoreQueryService;
+import com.drinkhere.drinklystore.infras3.service.PresignedUrlService;
 import com.drinkhere.drinklystore.util.TimeUtil;
 import lombok.RequiredArgsConstructor;
 
@@ -16,6 +20,8 @@ import java.util.stream.Collectors;
 public class GetMemberFreeDrinkHistoriesUseCase {
 
     private final FreeDrinkHistoryQueryService freeDrinkHistoryQueryService;
+    private final PresignedUrlService presignedUrlService;
+    private final StoreQueryService storeQueryService;
 
     public List<GetMemberFreeDrinkHistoryResponse> getMemberFreeDrinkHistory(Long memberId, Long subscribeId) {
         List<FreeDrinkHistory> freeDrinkHistoriesByMemberId = freeDrinkHistoryQueryService.getMemberFreeDrinkHistories(memberId, subscribeId);
@@ -42,6 +48,34 @@ public class GetMemberFreeDrinkHistoriesUseCase {
                 .toList();
 
         return new GetFreeDrinkHistoriesResponse(usedCount, drinksHistory);
+    }
+
+    public GetFreeDrinkHistoriesResponseV2 getFreeDrinkHistoriesV2(Long memberId, Long subscribeId) {
+        List<FreeDrinkHistory> histories = freeDrinkHistoryQueryService.getFreeDrinkHistoriesAtMemberApp(memberId);
+
+        int usedCount = (int) histories.stream()
+                .filter(history -> history.getSubscribeId().equals(subscribeId))
+                .count();
+
+        List<GetFreeDrinkHistoriesResponseV2.DrinkHistory> drinksHistory = histories.stream()
+                .map(history ->
+                        new GetFreeDrinkHistoriesResponseV2.DrinkHistory(
+                            history.getId(),
+                            history.getStore().getStoreName(),
+                            history.getProvidedDrinkImageId(),
+                            history.getProvidedDrink(),
+                            TimeUtil.refineToFullKoreanDateTime(history.getCreatedDate())
+                        )
+                )
+                .toList();
+
+        return new GetFreeDrinkHistoriesResponseV2(usedCount, drinksHistory);
+    }
+
+
+    public String getFreeDrinkImageUrl(Long imageId) {
+        StoreImage storeImageByIdOrThrow = storeQueryService.findStoreImageByIdOrThrow(imageId);
+        return presignedUrlService.getPresignedUrlForGet(storeImageByIdOrThrow.getStoreImageUrl());
     }
 
 }
