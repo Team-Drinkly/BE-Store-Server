@@ -1,8 +1,8 @@
 package com.drinkhere.drinklystore.application.presentation.freedrink.docs;
 
 import com.drinkhere.drinklystore.common.response.ApplicationResponse;
-import com.drinkhere.drinklystore.domain.dto.request.CreateFreeDrinkHistoryRequest;
-import com.drinkhere.drinklystore.domain.dto.response.GetMemberFreeDrinkHistoryResponse;
+import com.drinkhere.drinklystore.domain.dto.freedrink.request.CreateFreeDrinkHistoryRequest;
+import com.drinkhere.drinklystore.domain.dto.freedrink.response.GetMemberFreeDrinkHistoryResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;

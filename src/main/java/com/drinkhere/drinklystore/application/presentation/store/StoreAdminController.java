@@ -8,11 +8,11 @@ import com.drinkhere.drinklystore.application.service.Impl.store.RegisterStoreUs
 import com.drinkhere.drinklystore.application.service.Impl.store.UpdateStoreUseCase;
 import com.drinkhere.drinklystore.application.service.UpdateImagesUseCase;
 import com.drinkhere.drinklystore.common.response.ApplicationResponse;
-import com.drinkhere.drinklystore.domain.dto.request.RegisterStoreRequest;
-import com.drinkhere.drinklystore.domain.dto.request.StoreImageUpdateRequest;
-import com.drinkhere.drinklystore.domain.dto.request.UpdateStoreRequest;
-import com.drinkhere.drinklystore.domain.dto.response.*;
-import com.drinkhere.drinklystore.domain.service.store.StoreCommandService;
+import com.drinkhere.drinklystore.domain.dto.freedrink.response.GetFreeDrinkHistoryResponse;
+import com.drinkhere.drinklystore.domain.dto.store.request.RegisterStoreRequest;
+import com.drinkhere.drinklystore.domain.dto.store.request.StoreImageUpdateRequest;
+import com.drinkhere.drinklystore.domain.dto.store.request.UpdateStoreRequest;
+import com.drinkhere.drinklystore.domain.dto.store.response.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 

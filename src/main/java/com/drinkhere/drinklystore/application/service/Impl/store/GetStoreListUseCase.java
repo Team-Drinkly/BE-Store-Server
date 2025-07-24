@@ -1,7 +1,7 @@
 package com.drinkhere.drinklystore.application.service.Impl.store;
 
 import com.drinkhere.drinklystore.common.annotation.ApplicationService;
-import com.drinkhere.drinklystore.domain.dto.response.GetStoreListResponse;
+import com.drinkhere.drinklystore.domain.dto.store.response.GetStoreListResponse;
 import com.drinkhere.drinklystore.domain.entity.store.Store;
 import com.drinkhere.drinklystore.domain.service.store.StoreQueryService;
 import lombok.RequiredArgsConstructor;

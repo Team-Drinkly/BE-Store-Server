@@ -1,11 +1,9 @@
-package com.drinkhere.drinklystore.domain.dto.response;
+package com.drinkhere.drinklystore.domain.dto.store.response;
 
 import com.drinkhere.drinklystore.domain.dto.OpeningHours;
 import com.drinkhere.drinklystore.infras3.service.PresignedUrlService;
 import com.drinkhere.drinklystore.domain.entity.store.Store;
-import com.drinkhere.drinklystore.domain.entity.store.StoreImage;
 import com.drinkhere.drinklystore.domain.enums.StoreImageType;
-import com.drinkhere.drinklystore.util.DistanceUtil;
 import com.drinkhere.drinklystore.util.JsonUtil;
 
 import java.time.DayOfWeek;
@@ -16,29 +14,41 @@ import java.util.List;
 import java.util.StringTokenizer;
 import java.util.stream.Collectors;
 
-public record GetStoresByLocationResponse(
-        Long id,
+public record GetStoreResponse(
+        Long storeId,
+        Long ownerId,
         String storeName,
         String storeMainImageUrl,
-        String latitude,
-        String longitude,
+        String storeDescription,
         String isOpen,
         boolean isAvailable,
         String openingInfo,
+        List<OpeningHours> openingHours,
         String storeTel,
         String storeAddress,
-        List<String> availableDrinks,
-        Double distance
+        String storeDetailAddress,
+        String instagramUrl,
+        String availableDays,
+        String latitude,
+        String longitude,
+        List<ImageInfoResponse> availableDrinkImageUrls,
+        List<ImageInfoResponse> menuImageUrls,
+        boolean isReady
 ) {
-    public static GetStoresByLocationResponse toDto(Store store, PresignedUrlService presignedUrlService, double userLat, double userLng) {
+    public static GetStoreResponse toDto(Store store, PresignedUrlService presignedUrlService) {
         String presignedUrl = null;
         if (store.getStoreMainImageUrl() != null) {
             presignedUrl = presignedUrlService.getPresignedUrlForGet(store.getStoreMainImageUrl());
         }
-
-        List<String> availableDrinks = store.getStoreImages().stream()
+        
+        List<ImageInfoResponse> availableDrinkImages = store.getStoreImages().stream()
                 .filter(image -> image.getStoreImageType() == StoreImageType.AVAILABLE_DRINK)
-                .map(StoreImage::getStoreImageDescription)
+                .map(image -> ImageInfoResponse.toDto(image.getId(), presignedUrlService.getPresignedUrlForGet(image.getStoreImageUrl()), image.getStoreImageDescription()))
+                .collect(Collectors.toList());
+
+        List<ImageInfoResponse> menuImages = store.getStoreImages().stream()
+                .filter(image -> image.getStoreImageType() == StoreImageType.MENU)
+                .map(image -> ImageInfoResponse.toDto(image.getId(), presignedUrlService.getPresignedUrlForGet(image.getStoreImageUrl()), image.getStoreImageDescription()))
                 .collect(Collectors.toList());
 
         String openingHours = store.getOpeningHours();
@@ -101,7 +111,6 @@ public record GetStoresByLocationResponse(
             }
         }
 
-
         DayOfWeek dayOfWeek = LocalDate.now().getDayOfWeek();
         String koreanDay = switch (dayOfWeek) {
             case MONDAY -> "월";
@@ -114,35 +123,44 @@ public record GetStoresByLocationResponse(
         };
 
         boolean isAvailable = false;
-        StringTokenizer st = new StringTokenizer(store.getAvailableDays(), " ");
-        while (st.hasMoreTokens()) {
-            String token = st.nextToken();
-            if (token.equals(koreanDay) && isOpen.equals("영업중")) {
-                isAvailable = true;
-                break;
+        if (store.getIsReady()) {
+            StringTokenizer st = new StringTokenizer(store.getAvailableDays(), " ");
+            while (st.hasMoreTokens()) {
+                String token = st.nextToken();
+                if (token.equals(koreanDay) && isOpen.equals("영업중")) {
+                    isAvailable = true;
+                    break;
+                }
             }
         }
 
-        double distance = DistanceUtil.calculateDistance(
-                userLat,
-                userLng,
-                Double.parseDouble(store.getLatitude()),
-                Double.parseDouble(store.getLongitude())
-        );
+        boolean isReady = !availableDrinkImages.isEmpty()
+                            && openingHours != null
+                            && store.getAvailableDays() != null
+                            && !store.getAvailableDays().isBlank();
 
-        return new GetStoresByLocationResponse(
+        store.setIsReady(isReady);
+
+        return new GetStoreResponse(
                 store.getId(),
+                store.getOwnerId(),
                 store.getStoreName(),
                 presignedUrl,
-                store.getLatitude(),
-                store.getLongitude(),
+                store.getStoreDescription(),
                 isOpen,
                 isAvailable,
                 openingInfo,
+                openingHoursList,
                 store.getStoreTel(),
                 store.getStoreAddress(),
-                availableDrinks,
-                distance
+                store.getStoreDetailAddress(),
+                store.getInstagramUrl(),
+                store.getAvailableDays(),
+                store.getLatitude(),
+                store.getLongitude(),
+                availableDrinkImages,
+                menuImages,
+                isReady
         );
     }
 

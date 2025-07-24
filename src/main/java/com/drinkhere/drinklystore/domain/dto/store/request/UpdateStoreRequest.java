@@ -1,9 +1,7 @@
-package com.drinkhere.drinklystore.domain.dto.request;
+package com.drinkhere.drinklystore.domain.dto.store.request;
 
 import com.drinkhere.drinklystore.domain.dto.OpeningHours;
 import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 
 import java.util.List;

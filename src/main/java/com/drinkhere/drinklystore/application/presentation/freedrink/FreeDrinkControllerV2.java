@@ -3,8 +3,8 @@ package com.drinkhere.drinklystore.application.presentation.freedrink;
 import com.drinkhere.drinklystore.application.service.Impl.freedrinkhistory.CreateFreeDrinkHistoryUseCase;
 import com.drinkhere.drinklystore.application.service.Impl.freedrinkhistory.GetMemberFreeDrinkHistoriesUseCase;
 import com.drinkhere.drinklystore.common.response.ApplicationResponse;
-import com.drinkhere.drinklystore.domain.dto.request.CreateFreeDrinkHistoryRequestV2;
-import com.drinkhere.drinklystore.domain.dto.response.GetFreeDrinkHistoriesResponseV2;
+import com.drinkhere.drinklystore.domain.dto.freedrink.request.CreateFreeDrinkHistoryRequestV2;
+import com.drinkhere.drinklystore.domain.dto.freedrink.response.GetFreeDrinkHistoriesResponseV2;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 

@@ -1,7 +1,4 @@
-package com.drinkhere.drinklystore.domain.dto.response;
-
-import com.drinkhere.drinklystore.domain.dto.request.ImageInfo;
-import io.swagger.v3.oas.annotations.media.Schema;
+package com.drinkhere.drinklystore.domain.dto.store.response;
 
 public record ImageInfoResponse(
         Long imageId,

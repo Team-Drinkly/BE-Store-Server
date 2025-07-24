@@ -1,8 +1,8 @@
-package com.drinkhere.drinklystore.domain.dto.response;
+package com.drinkhere.drinklystore.domain.dto.freedrink.response;
 
 import java.util.List;
 
-public record GetFreeDrinkHistoriesResponseV2(
+public record GetFreeDrinkHistoriesResponse(
         int usedCount,
         List<DrinkHistory> drinksHistory
 ) {
@@ -11,7 +11,6 @@ public record GetFreeDrinkHistoriesResponseV2(
     public record DrinkHistory(
             Long freeDrinkHistoryId,
             String storeName,
-            Long providedDrinkImageId,
             String providedDrink,
             String usageDate
     ) {}

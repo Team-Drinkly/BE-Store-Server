@@ -1,12 +1,15 @@
 package com.drinkhere.drinklystore.application.presentation.store.docs;
 
 
-import com.drinkhere.drinklystore.common.exception.ErrorResponse;
 import com.drinkhere.drinklystore.common.response.ApplicationResponse;
-import com.drinkhere.drinklystore.domain.dto.request.RegisterStoreRequest;
-import com.drinkhere.drinklystore.domain.dto.request.StoreImageUpdateRequest;
-import com.drinkhere.drinklystore.domain.dto.request.UpdateStoreRequest;
-import com.drinkhere.drinklystore.domain.dto.response.*;
+import com.drinkhere.drinklystore.domain.dto.freedrink.response.GetFreeDrinkHistoryResponse;
+import com.drinkhere.drinklystore.domain.dto.store.request.RegisterStoreRequest;
+import com.drinkhere.drinklystore.domain.dto.store.request.StoreImageUpdateRequest;
+import com.drinkhere.drinklystore.domain.dto.store.request.UpdateStoreRequest;
+import com.drinkhere.drinklystore.domain.dto.store.response.GetOwnerMainPageResponse;
+import com.drinkhere.drinklystore.domain.dto.store.response.GetStoreListResponse;
+import com.drinkhere.drinklystore.domain.dto.store.response.GetStoreResponse;
+import com.drinkhere.drinklystore.domain.dto.store.response.StoreResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;

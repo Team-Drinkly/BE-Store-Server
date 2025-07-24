@@ -1,7 +1,7 @@
 package com.drinkhere.drinklystore.application.service.Impl.freedrinkhistory;
 
 import com.drinkhere.drinklystore.common.annotation.ApplicationService;
-import com.drinkhere.drinklystore.domain.dto.response.GetFreeDrinkHistoryResponse;
+import com.drinkhere.drinklystore.domain.dto.freedrink.response.GetFreeDrinkHistoryResponse;
 import com.drinkhere.drinklystore.domain.entity.store.FreeDrinkHistory;
 import com.drinkhere.drinklystore.domain.service.freedrinkhistory.FreeDrinkHistoryQueryService;
 import lombok.RequiredArgsConstructor;

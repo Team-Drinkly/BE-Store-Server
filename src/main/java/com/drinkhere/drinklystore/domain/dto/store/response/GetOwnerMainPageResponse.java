@@ -1,4 +1,6 @@
-package com.drinkhere.drinklystore.domain.dto.response;
+package com.drinkhere.drinklystore.domain.dto.store.response;
+
+import com.drinkhere.drinklystore.domain.dto.freedrink.response.GetFreeDrinkHistoryResponse;
 
 import java.util.List;
 

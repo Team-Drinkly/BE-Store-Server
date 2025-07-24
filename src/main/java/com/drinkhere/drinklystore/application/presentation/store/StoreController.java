@@ -4,9 +4,9 @@ import com.drinkhere.drinklystore.application.presentation.store.docs.StoreContr
 import com.drinkhere.drinklystore.application.service.Impl.store.GetStoreUseCase;
 import com.drinkhere.drinklystore.application.service.Impl.store.GetStoresByLocationUseCase;
 import com.drinkhere.drinklystore.common.response.ApplicationResponse;
-import com.drinkhere.drinklystore.domain.dto.response.GetStoreResponse;
-import com.drinkhere.drinklystore.domain.dto.response.GetStoresByLocationResponse;
-import com.drinkhere.drinklystore.domain.dto.response.MemberIdResponse;
+import com.drinkhere.drinklystore.domain.dto.store.response.GetStoreResponse;
+import com.drinkhere.drinklystore.domain.dto.store.response.GetStoresByLocationResponse;
+import com.drinkhere.drinklystore.domain.dto.store.response.MemberIdResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 

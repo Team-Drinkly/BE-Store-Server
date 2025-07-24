@@ -1,5 +1,6 @@
 package com.drinkhere.drinklystore.domain.entity.event;
 
+import com.drinkhere.drinklystore.domain.entity.store.StoreImage;
 import com.drinkhere.drinklystore.domain.enums.EventCategory;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
@@ -8,6 +9,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Getter
@@ -48,6 +50,10 @@ public class Event {
     // 이벤트 카테고리 (일반 이벤트, 친구 초대 이벤트 등)
     @Enumerated(EnumType.STRING) @Column(nullable = false)
     private EventCategory eventCategory;
+
+    // 이벤트 관련 이미지들
+    @OneToMany(mappedBy = "event", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<EventImage> eventImages;
 
     @Builder
     public Event(String thumbnailPath, String title, String benefit, LocalDateTime startDate, LocalDateTime endDate,

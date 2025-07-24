@@ -1,4 +1,4 @@
-package com.drinkhere.drinklystore.domain.dto.response;
+package com.drinkhere.drinklystore.domain.dto.freedrink.response;
 
 import com.drinkhere.drinklystore.common.utils.TimeUtil;
 import com.drinkhere.drinklystore.domain.entity.store.FreeDrinkHistory;

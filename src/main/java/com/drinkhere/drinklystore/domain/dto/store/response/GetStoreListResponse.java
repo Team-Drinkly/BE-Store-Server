@@ -1,4 +1,4 @@
-package com.drinkhere.drinklystore.domain.dto.response;
+package com.drinkhere.drinklystore.domain.dto.store.response;
 
 import com.drinkhere.drinklystore.domain.entity.store.Store;
 

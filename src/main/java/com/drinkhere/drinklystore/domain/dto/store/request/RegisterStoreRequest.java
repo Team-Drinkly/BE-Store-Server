@@ -1,4 +1,4 @@
-package com.drinkhere.drinklystore.domain.dto.request;
+package com.drinkhere.drinklystore.domain.dto.store.request;
 
 import com.drinkhere.drinklystore.clientgeocoding.dto.Coordinates;
 import com.drinkhere.drinklystore.domain.entity.store.Store;

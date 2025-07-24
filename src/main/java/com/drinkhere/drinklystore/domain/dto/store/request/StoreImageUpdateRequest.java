@@ -1,4 +1,4 @@
-package com.drinkhere.drinklystore.domain.dto.request;
+package com.drinkhere.drinklystore.domain.dto.store.request;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.util.List;

@@ -1,4 +1,4 @@
-package com.drinkhere.drinklystore.domain.dto.request;
+package com.drinkhere.drinklystore.domain.dto.store.request;
 
 public record GetAllStoresMapViewRequest(
         String latitude,

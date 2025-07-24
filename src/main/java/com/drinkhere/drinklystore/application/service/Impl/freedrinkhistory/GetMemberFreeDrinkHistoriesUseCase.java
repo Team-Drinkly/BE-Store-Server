@@ -1,9 +1,9 @@
 package com.drinkhere.drinklystore.application.service.Impl.freedrinkhistory;
 
 import com.drinkhere.drinklystore.common.annotation.ApplicationService;
-import com.drinkhere.drinklystore.domain.dto.response.GetFreeDrinkHistoriesResponse;
-import com.drinkhere.drinklystore.domain.dto.response.GetFreeDrinkHistoriesResponseV2;
-import com.drinkhere.drinklystore.domain.dto.response.GetMemberFreeDrinkHistoryResponse;
+import com.drinkhere.drinklystore.domain.dto.freedrink.response.GetFreeDrinkHistoriesResponse;
+import com.drinkhere.drinklystore.domain.dto.freedrink.response.GetFreeDrinkHistoriesResponseV2;
+import com.drinkhere.drinklystore.domain.dto.freedrink.response.GetMemberFreeDrinkHistoryResponse;
 import com.drinkhere.drinklystore.domain.entity.store.FreeDrinkHistory;
 import com.drinkhere.drinklystore.domain.entity.store.StoreImage;
 import com.drinkhere.drinklystore.domain.service.freedrinkhistory.FreeDrinkHistoryQueryService;
