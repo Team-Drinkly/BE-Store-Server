@@ -15,14 +15,14 @@ public class EventAdminController {
     private final CreateEventUseCase createEventUseCase;
     private final DeleteEventUseCase deleteEventUseCase;
 
-    @PostMapping
+    @PostMapping("/create")
     public ApplicationResponse<CreateEventResponse> createEvent(@RequestBody CreateEventRequest createEventRequest) {
         return ApplicationResponse.created(createEventUseCase.createEvent(createEventRequest), "이벤트 등록이 성공적으로 처리됐습니다.");
     }
 
 
-    @DeleteMapping
-    public ApplicationResponse<String> createEvent(
+    @DeleteMapping("/delete")
+    public ApplicationResponse<String> deleteEvent(
             @RequestHeader Long eventId
     ) {
         deleteEventUseCase.deleteEvent(eventId);
