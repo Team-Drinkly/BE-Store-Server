@@ -9,7 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/v1/store/o/event")
+@RequestMapping("/api/v1/event/o")
 @RequiredArgsConstructor
 public class EventAdminController {
     private final CreateEventUseCase createEventUseCase;
