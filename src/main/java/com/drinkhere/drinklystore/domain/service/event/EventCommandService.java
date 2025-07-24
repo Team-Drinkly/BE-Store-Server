@@ -52,4 +52,8 @@ public class EventCommandService {
         // 3. 응답 반환
         return CreateEventResponse.toDto(event, images, presignedUrlService);
     }
+
+    public void deleteEvent(Event event) {
+        eventRepository.delete(event);
+    }
 }
