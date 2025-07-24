@@ -1,6 +1,6 @@
 package com.drinkhere.drinklystore.domain.dto.store.response;
 
-import com.drinkhere.drinklystore.domain.dto.OpeningHours;
+import com.drinkhere.drinklystore.domain.dto.store.OpeningHours;
 import com.drinkhere.drinklystore.domain.entity.store.Store;
 import com.drinkhere.drinklystore.util.JsonUtil;
 

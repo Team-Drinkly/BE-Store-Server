@@ -10,7 +10,6 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class EventImage {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "event_image_id")
@@ -20,20 +19,12 @@ public class EventImage {
     @JoinColumn(name = "fk_event_id", nullable = false)
     private Event event;
 
-    @Column(name = "event_image_url", nullable = false, length = 500)
+    @Column(name = "event_image_url", nullable = false)
     private String eventImageUrl;
 
-    @Column(name = "event_image_type", nullable = false, length = 20)
-    private String eventImageType; // enum으로 분리하고 싶다면 아래 설명 참고
-
-    @Column(name = "event_image_description", nullable = false)
-    private String eventImageDescription;
-
     @Builder
-    public EventImage(Event event, String eventImageUrl, String eventImageType, String eventImageDescription) {
+    public EventImage(Event event, String eventImageUrl) {
         this.event = event;
         this.eventImageUrl = eventImageUrl;
-        this.eventImageType = eventImageType;
-        this.eventImageDescription = eventImageDescription;
     }
 }

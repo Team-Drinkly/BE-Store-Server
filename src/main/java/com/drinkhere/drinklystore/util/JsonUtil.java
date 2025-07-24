@@ -1,6 +1,6 @@
 package com.drinkhere.drinklystore.util;
 
-import com.drinkhere.drinklystore.domain.dto.OpeningHours;
+import com.drinkhere.drinklystore.domain.dto.store.OpeningHours;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 

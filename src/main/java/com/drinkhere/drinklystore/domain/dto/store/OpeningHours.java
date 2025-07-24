@@ -1,4 +1,4 @@
-package com.drinkhere.drinklystore.domain.dto;
+package com.drinkhere.drinklystore.domain.dto.store;
 
 public record OpeningHours(
         String day,
