@@ -26,10 +26,8 @@ public class EventQueryService {
                 .orElseThrow(() -> new EventException(EVENT_NOT_FOUND));
     }
 
-    public List<GetEventsResponse> findAllEvents() {
-        return eventRepository.findAll().stream()
-                .map(event -> GetEventsResponse.toDto(event, presignedUrlService))
-                .toList();
+    public List<Event> findAllEvents() {
+        return eventRepository.findAll();
     }
 
     public Event findWithImagesByIdOrThrow(Long eventId) {
