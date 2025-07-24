@@ -1,8 +1,8 @@
 package com.drinkhere.drinklystore.domain.service.store;
 
 import com.drinkhere.drinklystore.common.annotation.DomainService;
-import com.drinkhere.drinklystore.domain.entity.Store;
-import com.drinkhere.drinklystore.domain.entity.StoreImage;
+import com.drinkhere.drinklystore.domain.entity.store.Store;
+import com.drinkhere.drinklystore.domain.entity.store.StoreImage;
 import com.drinkhere.drinklystore.domain.repository.StoreImageRepository;
 import com.drinkhere.drinklystore.domain.repository.StoreRepository;
 import lombok.RequiredArgsConstructor;

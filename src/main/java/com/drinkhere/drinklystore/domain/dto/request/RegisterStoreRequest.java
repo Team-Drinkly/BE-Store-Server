@@ -1,7 +1,7 @@
 package com.drinkhere.drinklystore.domain.dto.request;
 
 import com.drinkhere.drinklystore.clientgeocoding.dto.Coordinates;
-import com.drinkhere.drinklystore.domain.entity.Store;
+import com.drinkhere.drinklystore.domain.entity.store.Store;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;

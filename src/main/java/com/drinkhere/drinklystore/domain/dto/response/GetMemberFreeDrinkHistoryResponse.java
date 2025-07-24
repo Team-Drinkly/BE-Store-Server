@@ -1,7 +1,7 @@
 package com.drinkhere.drinklystore.domain.dto.response;
 
 import com.drinkhere.drinklystore.common.utils.TimeUtil;
-import com.drinkhere.drinklystore.domain.entity.FreeDrinkHistory;
+import com.drinkhere.drinklystore.domain.entity.store.FreeDrinkHistory;
 
 public record GetMemberFreeDrinkHistoryResponse(
     Long freeDrinkHistoryId,

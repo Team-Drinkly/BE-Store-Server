@@ -1,6 +1,6 @@
 package com.drinkhere.drinklystore.domain.dto.response;
 
-import com.drinkhere.drinklystore.domain.entity.Store;
+import com.drinkhere.drinklystore.domain.entity.store.Store;
 
 public record GetStoreListResponse(
         Long storeId,

@@ -1,7 +1,6 @@
 package com.drinkhere.drinklystore.domain.repository;
 
-import com.drinkhere.drinklystore.domain.dto.response.GetFreeDrinkHistoriesResponse;
-import com.drinkhere.drinklystore.domain.entity.FreeDrinkHistory;
+import com.drinkhere.drinklystore.domain.entity.store.FreeDrinkHistory;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

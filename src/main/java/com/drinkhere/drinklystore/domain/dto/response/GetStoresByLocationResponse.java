@@ -2,8 +2,8 @@ package com.drinkhere.drinklystore.domain.dto.response;
 
 import com.drinkhere.drinklystore.domain.dto.OpeningHours;
 import com.drinkhere.drinklystore.infras3.service.PresignedUrlService;
-import com.drinkhere.drinklystore.domain.entity.Store;
-import com.drinkhere.drinklystore.domain.entity.StoreImage;
+import com.drinkhere.drinklystore.domain.entity.store.Store;
+import com.drinkhere.drinklystore.domain.entity.store.StoreImage;
 import com.drinkhere.drinklystore.domain.enums.StoreImageType;
 import com.drinkhere.drinklystore.util.DistanceUtil;
 import com.drinkhere.drinklystore.util.JsonUtil;

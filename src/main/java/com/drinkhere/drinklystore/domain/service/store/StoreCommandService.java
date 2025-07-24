@@ -1,17 +1,14 @@
 package com.drinkhere.drinklystore.domain.service.store;
 
 import com.drinkhere.drinklystore.common.annotation.DomainService;
-import com.drinkhere.drinklystore.domain.dto.OpeningHours;
 import com.drinkhere.drinklystore.domain.dto.request.ImageInfo;
 import com.drinkhere.drinklystore.domain.dto.request.UpdateStoreRequest;
-import com.drinkhere.drinklystore.domain.entity.Store;
-import com.drinkhere.drinklystore.domain.entity.StoreImage;
+import com.drinkhere.drinklystore.domain.entity.store.Store;
+import com.drinkhere.drinklystore.domain.entity.store.StoreImage;
 import com.drinkhere.drinklystore.domain.enums.StoreImageType;
 import com.drinkhere.drinklystore.domain.repository.StoreImageRepository;
 import com.drinkhere.drinklystore.domain.repository.StoreRepository;
 import com.drinkhere.drinklystore.util.JsonUtil;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
 

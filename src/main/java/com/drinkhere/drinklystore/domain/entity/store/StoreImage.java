@@ -1,4 +1,4 @@
-package com.drinkhere.drinklystore.domain.entity;
+package com.drinkhere.drinklystore.domain.entity.store;
 
 import com.drinkhere.drinklystore.domain.enums.StoreImageType;
 import jakarta.persistence.*;

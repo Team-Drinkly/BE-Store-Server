@@ -1,4 +1,4 @@
-package com.drinkhere.drinklystore.domain.entity;
+package com.drinkhere.drinklystore.domain.entity.store;
 
 import com.drinkhere.drinklystore.domain.auditing.BaseTimeEntity;
 import jakarta.persistence.*;
