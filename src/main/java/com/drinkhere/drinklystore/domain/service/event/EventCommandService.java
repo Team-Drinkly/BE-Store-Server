@@ -28,6 +28,9 @@ public class EventCommandService {
     private final ExternalEventRepository externalEventRepository;
     private final PresignedUrlService presignedUrlService;
 
+    /**
+     **************************** 자체 이벤트 ****************************
+     */
     public CreateEventResponse createEvent(CreateEventRequest request) {
         // 1. Event 저장
         Event savedEvent = eventRepository.save(request.toEntity());

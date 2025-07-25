@@ -24,6 +24,9 @@ public class EventQueryService {
     private final EventRepository eventRepository;
     private final ExternalEventRepository externalEventRepository;
 
+    /**
+     **************************** 자체 이벤트 ****************************
+     */
     public Event findById(Long eventId) {
         return eventRepository.findById(eventId)
                 .orElseThrow(() -> new EventException(EVENT_NOT_FOUND));
@@ -38,8 +41,13 @@ public class EventQueryService {
     }
 
 
+    /**
+     **************************** 외부 이벤트 ****************************
+     */
     public ExternalEvent findExternalEventById(Long externalEventId) {
         return externalEventRepository.findById(externalEventId)
                 .orElseThrow(() -> new EventException(EXTERNAL_EVENT_NOT_FOUND));
     }
+
+    public List<ExternalEvent> findAllExternalEvents() { return externalEventRepository.findAll(); }
 }
