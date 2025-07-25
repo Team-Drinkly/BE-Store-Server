@@ -14,4 +14,8 @@ public class DeleteEventUseCase {
     public void deleteEvent(Long eventId) {
         eventCommandService.deleteEvent(eventQueryService.findById(eventId));
     }
+
+    public void deleteExternalEvent(Long externalEventId) {
+        eventCommandService.deleteExternalEvent(eventQueryService.findExternalEventById(externalEventId));
+    }
 }
