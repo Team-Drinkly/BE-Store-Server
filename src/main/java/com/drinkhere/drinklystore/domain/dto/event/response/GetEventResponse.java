@@ -4,12 +4,14 @@ import com.drinkhere.drinklystore.domain.entity.event.Event;
 import com.drinkhere.drinklystore.domain.enums.EventCategory;
 import com.drinkhere.drinklystore.infras3.service.PresignedUrlService;
 import com.drinkhere.drinklystore.util.TimeUtil;
+import lombok.Builder;
 
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Builder
 public record GetEventResponse(
         Long eventId,
 
@@ -46,18 +48,18 @@ public record GetEventResponse(
         else if (daysDiff > 0) dDay = "D-" + daysDiff;
         else dDay = "D+" + Math.abs(daysDiff);
 
-        return new GetEventResponse(
-                event.getId(),
-                eventImagePaths,
-                event.getTitle(),
-                status,
-                dDay,
-                TimeUtil.refineToMonthDayWithDayOfWeek(event.getStartDate()),
-                TimeUtil.refineToMonthDayWithDayOfWeek(endDate),
-                event.getBenefit(),
-                event.getDescription(),
-                event.getEventCategory(),
-                event.getRedirectUrl()
-        );
+        return GetEventResponse.builder()
+                .eventId(event.getId())
+                .eventImagePaths(eventImagePaths)
+                .title(event.getTitle())
+                .status(status)
+                .dDay(dDay)
+                .startDate(TimeUtil.refineToMonthDayWithDayOfWeek(event.getStartDate()))
+                .endDate(TimeUtil.refineToMonthDayWithDayOfWeek(endDate))
+                .benefit(event.getBenefit())
+                .description(event.getDescription())
+                .eventCategory(event.getEventCategory())
+                .redirectUrl(event.getRedirectUrl())
+                .build();
     }
 }
