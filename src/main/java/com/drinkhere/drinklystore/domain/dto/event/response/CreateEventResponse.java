@@ -27,17 +27,17 @@ public record CreateEventResponse(
                 .map(img -> presignedUrlService.getPresignedUrlForGet(img.getEventImageUrl()))
                 .collect(Collectors.toList());
 
-        return new CreateEventResponse(
-                presignedUrlService.getPresignedUrlForGet(event.getThumbnailPath()),
-                event.getTitle(),
-                event.getBenefit(),
-                TimeUtil.refineToMonthDayWithDayOfWeek(event.getStartDate()),
-                TimeUtil.refineToMonthDayWithDayOfWeek(event.getEndDate()),
-                event.getDescription(),
-                event.getRedirectUrl(),
-                event.getEventCategory(),
-                eventImagePaths
-        );
+        return CreateEventResponse.builder()
+                .thumbnailPath(presignedUrlService.getPresignedUrlForGet(event.getThumbnailPath()))
+                .title(event.getTitle())
+                .benefit(event.getBenefit())
+                .startDate(TimeUtil.refineToMonthDayWithDayOfWeek(event.getStartDate()))
+                .endDate(TimeUtil.refineToMonthDayWithDayOfWeek(event.getEndDate()))
+                .description(event.getDescription())
+                .redirectUrl(event.getRedirectUrl())
+                .eventCategory(event.getEventCategory())
+                .eventImagePaths(eventImagePaths)
+                .build();
     }
 
 }

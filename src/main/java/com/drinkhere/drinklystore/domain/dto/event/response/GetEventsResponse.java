@@ -1,13 +1,17 @@
 package com.drinkhere.drinklystore.domain.dto.event.response;
 
 import com.drinkhere.drinklystore.domain.entity.event.Event;
+import com.drinkhere.drinklystore.domain.enums.EventCategory;
 import com.drinkhere.drinklystore.infras3.service.PresignedUrlService;
+import lombok.Builder;
 
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 
+@Builder
 public record GetEventsResponse(
         Long eventId,
+        EventCategory eventCategory,
         String thumbnailPath,
         String title,
         String status,     // 진행 중 / 마감
@@ -27,12 +31,13 @@ public record GetEventsResponse(
         else if (daysDiff > 0) dDay = "D-" + daysDiff;
         else dDay = "D+" + Math.abs(daysDiff);
 
-        return new GetEventsResponse(
-                event.getId(),
-                presignedUrlService.getPresignedUrlForGet(event.getThumbnailPath()),
-                event.getTitle(),
-                status,
-                dDay
-        );
+        return GetEventsResponse.builder()
+                .eventId(event.getId())
+                .thumbnailPath(presignedUrlService.getPresignedUrlForGet(event.getThumbnailPath()))
+                .title(event.getTitle())
+                .status(status)
+                .dDay(dDay)
+                .eventCategory(event.getEventCategory())
+                .build();
     }
 }
