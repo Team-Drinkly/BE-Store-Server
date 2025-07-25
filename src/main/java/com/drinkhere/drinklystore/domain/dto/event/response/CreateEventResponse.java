@@ -5,9 +5,12 @@ import com.drinkhere.drinklystore.domain.entity.event.EventImage;
 import com.drinkhere.drinklystore.domain.enums.EventCategory;
 import com.drinkhere.drinklystore.infras3.service.PresignedUrlService;
 import com.drinkhere.drinklystore.util.TimeUtil;
+import lombok.Builder;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Builder
 public record CreateEventResponse(
         String thumbnailPath,
         String title,

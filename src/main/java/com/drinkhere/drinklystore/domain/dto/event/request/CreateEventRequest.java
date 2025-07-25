@@ -1,5 +1,6 @@
 package com.drinkhere.drinklystore.domain.dto.event.request;
 
+import com.drinkhere.drinklystore.domain.entity.event.Event;
 import com.drinkhere.drinklystore.domain.enums.EventCategory;
 
 import java.time.LocalDateTime;
@@ -16,4 +17,16 @@ public record CreateEventRequest(
         EventCategory eventCategory,
         List<String> eventImagePaths
 ) {
+    public Event toEntity() {
+        return Event.builder()
+                .thumbnailPath(thumbnailPath)
+                .title(title)
+                .benefit(benefit)
+                .startDate(startDate)
+                .endDate(endDate)
+                .description(description)
+                .redirectUrl(redirectUrl)
+                .eventCategory(eventCategory)
+                .build();
+    }
 }
