@@ -5,9 +5,9 @@ import com.drinkhere.drinklystore.application.service.Impl.freedrinkhistory.Crea
 import com.drinkhere.drinklystore.application.service.Impl.freedrinkhistory.GetMemberFreeDrinkHistoriesUseCase;
 import com.drinkhere.drinklystore.application.service.Impl.freedrinkhistory.ValidateMemberFreeDrinkUseCase;
 import com.drinkhere.drinklystore.common.response.ApplicationResponse;
-import com.drinkhere.drinklystore.domain.dto.request.CreateFreeDrinkHistoryRequest;
-import com.drinkhere.drinklystore.domain.dto.response.GetFreeDrinkHistoriesResponse;
-import com.drinkhere.drinklystore.domain.dto.response.GetMemberFreeDrinkHistoryResponse;
+import com.drinkhere.drinklystore.domain.dto.freedrink.request.CreateFreeDrinkHistoryRequest;
+import com.drinkhere.drinklystore.domain.dto.freedrink.response.GetFreeDrinkHistoriesResponse;
+import com.drinkhere.drinklystore.domain.dto.freedrink.response.GetMemberFreeDrinkHistoryResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 

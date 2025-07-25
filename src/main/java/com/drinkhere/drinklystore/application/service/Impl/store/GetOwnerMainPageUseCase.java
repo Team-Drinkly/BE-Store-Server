@@ -1,10 +1,10 @@
 package com.drinkhere.drinklystore.application.service.Impl.store;
 
 import com.drinkhere.drinklystore.common.annotation.ApplicationService;
-import com.drinkhere.drinklystore.domain.dto.response.GetFreeDrinkHistoryResponse;
-import com.drinkhere.drinklystore.domain.dto.response.GetOwnerMainPageResponse;
-import com.drinkhere.drinklystore.domain.entity.FreeDrinkHistory;
-import com.drinkhere.drinklystore.domain.entity.Store;
+import com.drinkhere.drinklystore.domain.dto.freedrink.response.GetFreeDrinkHistoryResponse;
+import com.drinkhere.drinklystore.domain.dto.store.response.GetOwnerMainPageResponse;
+import com.drinkhere.drinklystore.domain.entity.store.FreeDrinkHistory;
+import com.drinkhere.drinklystore.domain.entity.store.Store;
 import com.drinkhere.drinklystore.domain.service.freedrinkhistory.FreeDrinkHistoryQueryService;
 import com.drinkhere.drinklystore.domain.service.store.StoreQueryService;
 import lombok.RequiredArgsConstructor;

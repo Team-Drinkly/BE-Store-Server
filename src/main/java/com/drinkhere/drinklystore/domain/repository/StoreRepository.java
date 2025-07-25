@@ -1,7 +1,7 @@
 package com.drinkhere.drinklystore.domain.repository;
 
 import com.drinkhere.drinklystore.common.exception.store.StoreException;
-import com.drinkhere.drinklystore.domain.entity.Store;
+import com.drinkhere.drinklystore.domain.entity.store.Store;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

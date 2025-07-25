@@ -2,8 +2,8 @@ package com.drinkhere.drinklystore.application.presentation.store.docs;
 
 
 import com.drinkhere.drinklystore.common.response.ApplicationResponse;
-import com.drinkhere.drinklystore.domain.dto.response.GetStoresByLocationResponse;
-import com.drinkhere.drinklystore.domain.dto.response.GetStoreResponse;
+import com.drinkhere.drinklystore.domain.dto.store.response.GetStoresByLocationResponse;
+import com.drinkhere.drinklystore.domain.dto.store.response.GetStoreResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;

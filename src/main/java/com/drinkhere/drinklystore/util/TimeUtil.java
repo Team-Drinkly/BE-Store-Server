@@ -22,4 +22,10 @@ public class TimeUtil {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy년 MM월 dd일 HH시 mm분");
         return localDateTime.format(formatter);
     }
+
+    public static String refineToMonthDayWithDayOfWeek(LocalDateTime localDateTime) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("M월 d일 (E)");
+        return localDateTime.format(formatter);
+    }
+
 }

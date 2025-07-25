@@ -2,9 +2,9 @@ package com.drinkhere.drinklystore.application.service.Impl.freedrinkhistory;
 
 import com.drinkhere.drinklystore.common.annotation.ApplicationService;
 import com.drinkhere.drinklystore.common.exception.store.StoreException;
-import com.drinkhere.drinklystore.domain.dto.request.CreateFreeDrinkHistoryRequest;
-import com.drinkhere.drinklystore.domain.dto.request.CreateFreeDrinkHistoryRequestV2;
-import com.drinkhere.drinklystore.domain.entity.Store;
+import com.drinkhere.drinklystore.domain.dto.freedrink.request.CreateFreeDrinkHistoryRequest;
+import com.drinkhere.drinklystore.domain.dto.freedrink.request.CreateFreeDrinkHistoryRequestV2;
+import com.drinkhere.drinklystore.domain.entity.store.Store;
 import com.drinkhere.drinklystore.domain.service.freedrinkhistory.FreeDrinkHistoryCommandService;
 import com.drinkhere.drinklystore.domain.service.store.StoreQueryService;
 import com.drinkhere.drinklystore.openfeign.client.MemberClient;
